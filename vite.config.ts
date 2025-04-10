@@ -12,18 +12,18 @@ export default defineConfig({
         plugins: ['@emotion/babel-plugin']
       }
     }),
-    compression({
-      algorithm: 'brotliCompress',
-      ext: '.br',
-      threshold: 512,
-      compressionOptions: { level: 11 }
-    }),
-    compression({
-      algorithm: 'gzip',
-      ext: '.gz',
-      threshold: 512,
-      compressionOptions: { level: 9 }
-    }),
+    // compression({
+    //   algorithm: 'brotliCompress',
+    //   ext: '.br',
+    //   threshold: 512,
+    //   compressionOptions: { level: 11 }
+    // }),
+    // compression({
+    //   algorithm: 'gzip',
+    //   ext: '.gz',
+    //   threshold: 512,
+    //   compressionOptions: { level: 9 }
+    // }),
     visualizer({
       open: true,
       gzipSize: true,
@@ -40,25 +40,25 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 1000,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log'],
-        passes: 2,
-        ecma: 2020
-      },
-      mangle: {
-        safari10: true
-      },
-      format: {
-        comments: false
-      }
-    },
-    reportCompressedSize: true,
+    // minify: 'terser',
+    // terserOptions: {
+    //   compress: {
+    //     drop_console: true,
+    //     drop_debugger: true,
+    //     pure_funcs: ['console.log'],
+    //     passes: 2,
+    //     ecma: 2020
+    //   },
+    //   mangle: {
+    //     safari10: true
+    //   },
+    //   format: {
+    //     comments: false
+    //   }
+    // },
+    // reportCompressedSize: true,
   },
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion', '@emotion/react', '@emotion/styled', 'react-icons'],
-  },
+  // optimizeDeps: {
+  //   include: ['react', 'react-dom', 'framer-motion', '@emotion/react', '@emotion/styled', 'react-icons'],
+  // },
 })

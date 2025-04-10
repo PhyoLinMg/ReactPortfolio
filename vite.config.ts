@@ -5,25 +5,25 @@ import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/PhyoLinMg.github.io/',
+  base: '/',
   plugins: [
     react({
       babel: {
         plugins: ['@emotion/babel-plugin']
       }
     }),
-    compression({
-      algorithm: 'brotliCompress',
-      ext: '.br',
-      threshold: 512,
-      compressionOptions: { level: 11 }
-    }),
-    compression({
-      algorithm: 'gzip',
-      ext: '.gz',
-      threshold: 512,
-      compressionOptions: { level: 9 }
-    }),
+    // compression({
+    //   algorithm: 'brotliCompress',
+    //   ext: '.br',
+    //   threshold: 512,
+    //   compressionOptions: { level: 11 }
+    // }),
+    // compression({
+    //   algorithm: 'gzip',
+    //   ext: '.gz',
+    //   threshold: 512,
+    //   compressionOptions: { level: 9 }
+    // }),
     visualizer({
       open: true,
       gzipSize: true,

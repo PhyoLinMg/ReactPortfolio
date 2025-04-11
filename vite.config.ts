@@ -3,31 +3,31 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
-  plugins: [
-    react({
-      babel: {
-        plugins: ['@emotion/babel-plugin']
-      }
-    }),
-    // compression({
-    //   algorithm: 'brotliCompress',
-    //   ext: '.br',
-    //   threshold: 512,
-    //   compressionOptions: { level: 11 }
-    // }),
-    // compression({
-    //   algorithm: 'gzip',
-    //   ext: '.gz',
-    //   threshold: 512,
-    //   compressionOptions: { level: 9 }
-    // }),
-    // visualizer({
-    //   open: true,
-    //   gzipSize: true,
-    //   brotliSize: true,
-    // })
-  ],
+  base: '/ReactPortfolio/',
+  // plugins: [
+  //   // react({
+  //   //   babel: {
+  //   //     plugins: ['@emotion/babel-plugin']
+  //   //   }
+  //   // }),
+  //   // compression({
+  //   //   algorithm: 'brotliCompress',
+  //   //   ext: '.br',
+  //   //   threshold: 512,
+  //   //   compressionOptions: { level: 11 }
+  //   // }),
+  //   // compression({
+  //   //   algorithm: 'gzip',
+  //   //   ext: '.gz',
+  //   //   threshold: 512,
+  //   //   compressionOptions: { level: 9 }
+  //   // }),
+  //   // visualizer({
+  //   //   open: true,
+  //   //   gzipSize: true,
+  //   //   brotliSize: true,
+  //   // })
+  // ],
   build: {
     rollupOptions: {
       // output: {

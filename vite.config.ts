@@ -1,10 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/PhyoLinMg.github.io/',
+  base: './',
   plugins: [
     react({
       babel: {
@@ -23,20 +22,20 @@ export default defineConfig({
     //   threshold: 512,
     //   compressionOptions: { level: 9 }
     // }),
-    visualizer({
-      open: true,
-      gzipSize: true,
-      brotliSize: true,
-    })
+    // visualizer({
+    //   open: true,
+    //   gzipSize: true,
+    //   brotliSize: true,
+    // })
   ],
   build: {
     rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'framer-motion', '@emotion/react', '@emotion/styled'],
-          icons: ['react-icons'],
-        },
-      },
+      // output: {
+      //   manualChunks: {
+      //     vendor: ['react', 'react-dom', 'framer-motion', '@emotion/react', '@emotion/styled'],
+      //     icons: ['react-icons'],
+      //   },
+      // },
     },
     chunkSizeWarningLimit: 1000,
     // minify: 'terser',

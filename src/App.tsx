@@ -1,32 +1,18 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { Layout } from './components/layout/Layout';
 import { Hero } from './components/sections/Hero';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from './styles/theme';
-import styled from '@emotion/styled';
+import Projects from './components/sections/Projects';
+import Experiences from './components/sections/Timeline';
+import Skills from './components/sections/Skills';
+import Contact from './components/sections/Contact';
 
 // Lazy load non-critical components
-const Projects = lazy(() => import('./components/sections/Projects'));
-const Skills = lazy(() => import('./components/sections/Skills'));
-const Contact = lazy(() => import('./components/sections/Contact'));
-const Timeline = lazy(() => import('./components/sections/Timeline'));
 
-// Loading fallback component
-const LoadingFallback = styled.div`
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: ${theme.colors.glass.background};
-  backdrop-filter: blur(8px);
-  color: ${theme.colors.accent};
-  font-size: 1.2rem;
-  
-  @media print {
-    display: none;
-  }
-`;
+
+
 
 function App() {
   return (
@@ -38,12 +24,10 @@ function App() {
        
           <Projects />
         
-          <Timeline />
+          <Experiences />
           <Skills />
-        
-        <Suspense fallback={<LoadingFallback>Loading contact...</LoadingFallback>}>
           <Contact />
-        </Suspense>
+       
         
       </Layout>
     </ThemeProvider>

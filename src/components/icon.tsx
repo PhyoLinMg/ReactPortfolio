@@ -2,7 +2,7 @@ import { FaReact, FaNodeJs, FaAws, FaDatabase, FaDocker, FaAngular, FaGithub, Fa
 import { SiRubyonrails, SiPostgresql, SiMongodb, SiMaterialdesign, SiHtml5, SiCss3, SiJquery, SiAwsamplify, SiFirebase, SiTerraform, SiArgo, SiKotlin, SiJetpackcompose, SiGradle, SiDart, SiGraphql, SiBitrise, SiPhp, SiMysql, SiTypescript } from 'react-icons/si';
 import { JSX } from '@emotion/react/jsx-runtime';
 import { GrDeploy, GrKubernetes } from "react-icons/gr";
-import { FaFlutter } from 'react-icons/fa6';
+
 
 export const techIcons: { [key: string]: JSX.Element } = {
   "ReactJS": <FaReact />,
@@ -19,7 +19,7 @@ export const techIcons: { [key: string]: JSX.Element } = {
   "CSS3": <SiCss3 />,
   "jQuery": <SiJquery />,
   "AWS-ECS": <SiAwsamplify />,
-  "Flutter": <FaFlutter/>,
+  // "Flutter": <FaFlutter/>,
   "Dart": <SiDart/>,
   'Cognito': <FaAws />,
   'Lambda': <FaAws />,

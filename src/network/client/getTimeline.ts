@@ -5,14 +5,15 @@ import datoCMSClient from './datoCMSClient';
 
 const GET_TIMELINE = `
 {
-  allTimelines {
-   	name
-    timelinetype
-    title
-    techstack
-    summarypoints
-    daterange
-  }
+  allTimelines(orderBy: startdate_DESC) {
+        daterange
+        id
+        name
+        summarypoints
+        techstack
+        timelinetype
+        title
+    }
 }
 `;
 

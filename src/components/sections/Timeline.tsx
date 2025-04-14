@@ -45,18 +45,6 @@ const SectionTitle = styled(motion.h2)`
     border-radius: 2px;
   }
 `;
-const TimelineContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: ${theme.spacing.lg};
-  width: 100%;
-  max-width: 1200px;
-  margin-top: ${theme.spacing.xl};
-
-  @media (min-width: ${theme.breakpoints.md}) {
-    gap: ${theme.spacing.xl};
-  }
-`;
 
 const Experiences = () => {
 

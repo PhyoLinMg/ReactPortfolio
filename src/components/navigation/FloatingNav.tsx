@@ -222,7 +222,7 @@ export const FloatingNav = () => {
             key={id}
             active={activeSection === id}
             onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })}
-            onKeyDown={(e) => handleKeyDown(e, id)}
+            onKeyDown={(e: any) => handleKeyDown(e, id)}
             data-tooltip={name}
             tabIndex={0}
             aria-label={`${name} section ${activeSection === id ? '(current section)' : ''}`}

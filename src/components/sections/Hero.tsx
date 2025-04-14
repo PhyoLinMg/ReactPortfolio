@@ -130,7 +130,7 @@ export const Hero = () => {
               Full Stack Developer
             </Subtitle>
             <Description role="paragraph">
-              I create elegant solutions to complex problems, specializing in modern web development
+              I create elegant solutions to complex problems, specializing in modern android/web development
               with a focus on user experience and clean code.
             </Description>
             <SocialLinks role="list" aria-label="Social media links">

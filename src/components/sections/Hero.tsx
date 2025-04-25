@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { theme } from '../../styles/theme';
 import { keyframes } from '@emotion/react';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaMedium } from 'react-icons/fa';
 
 const HeroSection = styled.section`
   min-height: calc(100vh - 4.5rem);
@@ -153,6 +153,16 @@ export const Hero = () => {
               >
                 <FaLinkedin aria-hidden="true" />
                 <span className="sr-only">LinkedIn</span>
+              </a>
+              <a 
+                href="https://medium.com/@linmgdev" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Visit my Medium profile"
+                role="listitem"
+              >
+                <FaMedium aria-hidden="true" />
+                <span className="sr-only">Medium</span>
               </a>
               <a 
                 href="mailto:phyolinmg@dev.gmail.com"

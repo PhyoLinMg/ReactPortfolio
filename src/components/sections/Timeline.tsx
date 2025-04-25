@@ -57,7 +57,7 @@ const Experiences = () => {
     fetchTimelineItem();
   }, []);
   if (!timeLineData) return <div>Loading...</div>;
-  console.log("🚀 ~ timeLineData:", timeLineData)
+
   return (
     <TimelineSection id="timeline" role="region" aria-label="Timeline">
       <SectionTitle

@@ -178,39 +178,45 @@ const ProjectLinks = styled.div`
     }
   }
 `;
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
 
 const Projects = () => {
-  const [projects, setProjects] = useState<Project[]>([])
+  const [projects, setProjects] = useState<Project[]|  null>(null);
   
   useEffect(() => { 
     async function fetchProjects() {
-      const data = await getProjects();
-      setProjects(data);
+      try {
+        const data = await getProjects();
+        setProjects(data);
+      } catch (error) {
+        console.error('Failed to fetch projects:', error);
+        // Optionally set an error state here to show a message to the user
+      }
     }
     
     fetchProjects()
   }, [])
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
+  
+  if (!projects) return <div>Loading...</div>;
 
   return (
     <ProjectsSection id="projects" role="region" aria-label="Featured Projects">
@@ -253,15 +259,6 @@ const Projects = () => {
                   ))}
                 </TechStack>
                 <ProjectLinks>
-                  {/* <a 
-                    href={project.githubUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    aria-label={`View ${project.title} source code on GitHub`}
-                  >
-                    <FaGithub aria-hidden="true" />
-                    <span className="sr-only">GitHub repository</span>
-                  </a> */}
                   <a 
                     href={project.liveurl} 
                     target="_blank" 

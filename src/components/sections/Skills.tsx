@@ -146,7 +146,7 @@ const SkillItem = styled(motion.div)`
 
 const Skills = () => {
 
-  const [skillsData, setSkillsData] = useState<AllSkillcategory[]>([]);
+  const [skillsData, setSkillsData] = useState<AllSkillcategory[] | null>(null);
 
   useEffect(() => {
     async function fetchSkills() {
@@ -177,7 +177,7 @@ const Skills = () => {
       },
     },
   };
-
+  if (!skillsData) return <div>Loading...</div>;
   return (
     <SkillsSection id="skills" role="region" aria-label="Skills and Expertise">
       <SectionTitle

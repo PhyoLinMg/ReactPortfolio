@@ -1,5 +1,5 @@
 // getDatoCmsToken.ts
 export const getDatoCmsToken = (): string => {
-    return 'e0b132b4ca96ee6941c02bc746f2f8';
-};
-  
+    console.log("cms token", import.meta.env.VITE_CMS_TOKEN);
+    return import.meta.env.VITE_CMS_TOKEN ?? "";
+};  

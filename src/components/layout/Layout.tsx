@@ -248,7 +248,7 @@ export const Layout = ({ children }: LayoutProps) => {
     setIsMobileMenuOpen(false);
   };
 
-  const handleDragEnd = (event: any, info: any) => {
+  const handleDragEnd = (_: any, info: any) => {
     if (info.offset.x > 50) { // If dragged more than 50px to the right
       closeMobileMenu();
     }

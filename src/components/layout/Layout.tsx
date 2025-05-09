@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { theme } from '../../styles/theme';
 import { FloatingNav } from '../navigation/FloatingNav';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
@@ -116,7 +116,73 @@ const NavLinks = styled.div`
   }
 
   @media (max-width: ${theme.breakpoints.sm}) {
+    display: none;
+  }
+`;
+
+const MobileMenuButton = styled.button`
+  display: none;
+  background: none;
+  border: none;
+  color: ${theme.colors.textLight};
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: ${theme.spacing.xs};
+  z-index: 1001;
+
+  @media (max-width: ${theme.breakpoints.sm}) {
+    display: block;
+  }
+`;
+
+const MobileNav = styled(motion.div)`
+  display: none;
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 250px;
+    background: ${theme.colors.glass.background};
+    backdrop-filter: blur(8px);
+    padding: ${theme.spacing.xl};
     gap: ${theme.spacing.md};
+    z-index: 1000;
+    transform: translateX(100%);
+    touch-action: pan-y;
+    
+    a {
+      color: ${theme.colors.textLight};
+      font-size: 1.2rem;
+      padding: ${theme.spacing.sm};
+      border-radius: 4px;
+      
+      &:hover {
+        color: ${theme.colors.light};
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+`;
+
+const Overlay = styled(motion.div)`
+  display: none;
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
   }
 `;
 
@@ -162,6 +228,7 @@ const Footer = styled.footer`
 
 export const Layout = ({ children }: LayoutProps) => {
   useKeyboardNavigation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Add keyboard navigation instructions to console
@@ -172,6 +239,20 @@ export const Layout = ({ children }: LayoutProps) => {
       '- End: Go to bottom'
     );
   }, []);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleDragEnd = (event: any, info: any) => {
+    if (info.offset.x > 50) { // If dragged more than 50px to the right
+      closeMobileMenu();
+    }
+  };
 
   return (
     <LayoutWrapper>
@@ -197,11 +278,41 @@ export const Layout = ({ children }: LayoutProps) => {
               <a href="#timeline" role="listitem" aria-label="Timeline">Timeline</a>
               <a href="#skills" role="listitem" aria-label="Skills section">Skills</a>
               <a href="#contact" role="listitem" aria-label="Contact section">Contact</a>
-              
             </NavLinks>
+            <MobileMenuButton 
+              onClick={toggleMobileMenu}
+              aria-label="Toggle mobile menu"
+              aria-expanded={isMobileMenuOpen}
+            >
+              {isMobileMenuOpen ? '✕' : '☰'}
+            </MobileMenuButton>
           </div>
         </Nav>
       </Header>
+
+      <Overlay
+        initial={false}
+        animate={{ opacity: isMobileMenuOpen ? 1 : 0, pointerEvents: isMobileMenuOpen ? 'auto' : 'none' }}
+        onClick={closeMobileMenu}
+      />
+
+      <MobileNav
+        initial={false}
+        animate={{ transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(100%)' }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.2}
+        onDragEnd={handleDragEnd}
+        whileDrag={{ cursor: 'grabbing' }}
+      >
+        <a href="#about" onClick={closeMobileMenu}>About</a>
+        <a href="#projects" onClick={closeMobileMenu}>Projects</a>
+        <a href="#timeline" onClick={closeMobileMenu}>Timeline</a>
+        <a href="#skills" onClick={closeMobileMenu}>Skills</a>
+        <a href="#contact" onClick={closeMobileMenu}>Contact</a>
+      </MobileNav>
+
       <Main id="main-content" role="main" tabIndex={-1}>
         {children}
       </Main>

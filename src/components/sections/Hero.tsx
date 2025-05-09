@@ -62,6 +62,9 @@ const Title = styled.h1`
   line-height: 1.1;
   letter-spacing: -0.02em;
   white-space: nowrap;
+  @media (max-width: ${theme.breakpoints.sm}) {
+     font-size: clamp(2.0rem, 6vw, 4.5rem);
+  }
 `;
 
 const Subtitle = styled.h2`

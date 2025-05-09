@@ -25,10 +25,7 @@ const NavContainer = styled(motion.nav)`
   }
 
   @media (max-width: ${theme.breakpoints.sm}) {
-    right: ${theme.spacing.sm};
-    padding: ${theme.spacing.md};
-    gap: ${theme.spacing.lg};
-    background: ${theme.colors.glass.background};
+    display: none;
   }
 
   @media (max-height: 500px) {

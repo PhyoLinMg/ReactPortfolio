@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { theme } from '../../styles/theme';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import  { useEffect, useState } from 'react';
 import { Project } from '../../network/model/Project';
 import { getProjects } from '../../network/client/getProjects';
@@ -268,6 +268,17 @@ const Projects = () => {
                     <FaExternalLinkAlt aria-hidden="true" />
                     <span className="sr-only">Live site</span>
                   </a>
+                  {project.githuburl && (
+                    <a 
+                      href={project.githuburl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${project.title} github repository`}
+                    >
+                      <FaGithub aria-hidden="true" />
+                      <span className="sr-only">Github</span>
+                    </a>
+                  )}
                 </ProjectLinks>
               </ProjectContent>
             </ProjectCard>

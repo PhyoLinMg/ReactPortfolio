@@ -11,6 +11,7 @@ const GET_PROJECTS = `
       description
       techused
       liveurl
+      githuburl
       image {
         url
       }

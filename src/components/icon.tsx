@@ -1,5 +1,5 @@
 import { FaReact, FaNodeJs, FaAws, FaDatabase, FaDocker, FaAngular, FaGithub, FaGitlab, FaGoogle, FaJava, FaJenkins, FaMicrosoft, FaPython, FaVuejs, FaAndroid, FaLaravel, FaGit } from 'react-icons/fa';
-import { SiRubyonrails, SiPostgresql, SiMongodb, SiMaterialdesign, SiHtml5, SiCss3, SiJquery, SiAwsamplify, SiFirebase, SiTerraform, SiArgo, SiKotlin, SiJetpackcompose, SiGradle, SiDart, SiGraphql, SiBitrise, SiPhp, SiMysql, SiTypescript } from 'react-icons/si';
+import { SiRubyonrails, SiPostgresql, SiMongodb, SiMaterialdesign, SiHtml5, SiCss3, SiJquery, SiAwsamplify, SiFirebase, SiTerraform, SiArgo, SiKotlin, SiJetpackcompose, SiGradle, SiDart, SiGraphql, SiBitrise, SiPhp, SiMysql, SiTypescript, SiSpringboot } from 'react-icons/si';
 import { JSX } from '@emotion/react/jsx-runtime';
 import { GrDeploy, GrKubernetes } from "react-icons/gr";
 
@@ -46,7 +46,7 @@ export const techIcons: { [key: string]: JSX.Element } = {
   'Terraform': <SiTerraform />,
   'ArgoCD': <SiArgo />,
   'Java': <FaJava />,
-  'Spring Boot': <FaJava />,
+  'Spring Boot': <SiSpringboot />,
   'Python': <FaPython />,
   'Node.js': <FaNodeJs />,
   'Express.js': <FaNodeJs />,

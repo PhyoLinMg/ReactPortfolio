@@ -7,12 +7,9 @@ import Projects from './components/sections/Projects';
 import Experiences from './components/sections/Timeline';
 import Skills from './components/sections/Skills';
 import Contact from './components/sections/Contact';
+import Certificates from './components/sections/Certificates';
 
 // Lazy load non-critical components
-
-
-
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -20,13 +17,12 @@ function App() {
       <Layout>
         {/* Hero section is critical for LCP, so keep it eager loaded */}
         <Hero />
-       
           <Projects />
-        
           <Experiences />
           <Skills />
+          <Certificates />
           <Contact />
-       
+        
         
       </Layout>
     </ThemeProvider>

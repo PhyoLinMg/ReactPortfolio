@@ -268,9 +268,9 @@ const Projects = () => {
                     <FaExternalLinkAlt aria-hidden="true" />
                     <span className="sr-only">Live site</span>
                   </a>
-                  {project.githuburl && (
+                  {(project as any).githuburl && (
                     <a 
-                      href={project.githuburl} 
+                      href={(project as any).githuburl as string} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       aria-label={`Visit ${project.title} github repository`}

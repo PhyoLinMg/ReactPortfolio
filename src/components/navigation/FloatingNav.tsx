@@ -25,7 +25,16 @@ const NavContainer = styled(motion.nav)`
   }
 
   @media (max-width: ${theme.breakpoints.sm}) {
-    display: none;
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: calc(${theme.spacing.sm} + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    flex-direction: row;
+    padding: ${theme.spacing.sm} ${theme.spacing.md};
+    gap: ${theme.spacing.sm};
+    border-radius: 999px;
+    width: auto;
   }
 
   @media (max-height: 500px) {
@@ -84,14 +93,6 @@ const NavDot = styled(motion.button)<{ active: boolean }>`
     color: ${theme.colors.light};
     font-weight: 500;
     letter-spacing: 0.5px;
-
-    @media (max-width: ${theme.breakpoints.sm}) {
-      right: auto;
-      left: -16px;
-      transform: translate(-100%, -50%);
-      font-size: 0.85rem;
-      padding: 6px 12px;
-    }
   }
 
   &:hover::before {
@@ -101,6 +102,23 @@ const NavDot = styled(motion.button)<{ active: boolean }>`
     @media (min-width: ${theme.breakpoints.sm}) {
       right: 32px;
       transform: translateY(-50%) scale(1.02);
+    }
+  }
+
+  @media (max-width: ${theme.breakpoints.sm}) {
+    &::before {
+      right: auto;
+      left: 50%;
+      top: auto;
+      bottom: 28px;
+      transform: translateX(-50%);
+    }
+
+    &:hover::before {
+      opacity: 1;
+      left: 50%;
+      bottom: 32px;
+      transform: translateX(-50%) scale(1.02);
     }
   }
 
@@ -140,8 +158,8 @@ const sections = [
   { id: 'projects', name: 'Projects' },
   { id: 'timeline', name: 'Timeline' },
   { id: 'skills', name: 'Skills' },
-  { id: 'contact', name: 'Contact' }
-  
+  { id: 'certificates', name: 'Certificates' },
+  { id: 'contact', name: 'Contact' },
 ];
 
 export const FloatingNav = () => {
@@ -167,7 +185,7 @@ export const FloatingNav = () => {
             // Update aria-live region
             const liveRegion = document.getElementById('section-announcer');
             if (liveRegion) {
-              liveRegion.textContent = `Current section: ${name}`;
+              (liveRegion as HTMLElement).textContent = `Current section: ${name}`;
             }
           }
         }

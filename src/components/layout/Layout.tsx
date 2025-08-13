@@ -277,6 +277,7 @@ export const Layout = ({ children }: LayoutProps) => {
               <a href="#projects" role="listitem" aria-label="Projects section">Projects</a>
               <a href="#timeline" role="listitem" aria-label="Timeline">Timeline</a>
               <a href="#skills" role="listitem" aria-label="Skills section">Skills</a>
+              <a href="#certificates" role="listitem" aria-label="Certificates section">Certificates</a>
               <a href="#contact" role="listitem" aria-label="Contact section">Contact</a>
             </NavLinks>
             <MobileMenuButton 
@@ -310,6 +311,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <a href="#projects" onClick={closeMobileMenu}>Projects</a>
         <a href="#timeline" onClick={closeMobileMenu}>Timeline</a>
         <a href="#skills" onClick={closeMobileMenu}>Skills</a>
+        <a href="#certificates" onClick={closeMobileMenu}>Certificates</a>
         <a href="#contact" onClick={closeMobileMenu}>Contact</a>
       </MobileNav>
 

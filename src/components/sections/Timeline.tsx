@@ -46,6 +46,22 @@ const SectionTitle = styled(motion.h2)`
   }
 `;
 
+const parseSummary = (summary: string) => {
+  if (!summary) return null;
+  const items = summary.split(/[*|-]/).map(s => s.trim()).filter(s => s.length > 0);
+
+  if (items.length > 1 || summary.includes('*') || summary.includes('-')) {
+    return (
+      <ul style={{ paddingLeft: '20px', marginTop: '8px', listStyleType: 'disc' }}>
+        {items.map((item, index) => (
+          <li key={index} style={{ marginBottom: '4px' }}>{item}</li>
+        ))}
+      </ul>
+    );
+  }
+  return <p>{summary}</p>;
+};
+
 const Experiences = () => {
 
   const [timeLineData, setTimeLineData] = useState<TimelineItem[] | null>(null);
@@ -68,7 +84,7 @@ const Experiences = () => {
         role="heading"
         aria-level={2}
       >
-       Timeline
+        Timeline
       </SectionTitle>
       <VerticalTimeline>
         {timeLineData.map((item, index) => (
@@ -96,17 +112,17 @@ const Experiences = () => {
             icon={item.timelinetype === "work" ? <WorkIcon /> : <SchoolIcon />}
           >
             {item.timelinetype === "work" ? (
-              <div style={{ color: theme.colors.text}}>
+              <div style={{ color: theme.colors.text }}>
                 <h3 className="vertical-timeline-element-title">{item.title}</h3>
                 <h4 className="vertical-timeline-element-subtitle">{item.name}</h4>
                 <p className="vertical-timeline-element-tech">🔧 {item.techstack}</p>
-                <p>{item.summarypoints}</p>
+                {parseSummary(item.summarypoints)}
               </div>
             ) : (
               <div style={{ color: 'black' }}>
                 <h3 className="vertical-timeline-element-title">{item.name}</h3>
                 <h4 className="vertical-timeline-element-subtitle">{item.title}</h4>
-                <p>{item.summarypoints}</p>
+                {parseSummary(item.summarypoints)}
               </div>
             )}
           </VerticalTimelineElement>

@@ -46,6 +46,29 @@ const SectionTitle = styled(motion.h2)`
   }
 `;
 
+const TagContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+`;
+
+const Tag = styled.span`
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+`;
+
 const parseSummary = (summary: string) => {
   if (!summary) return null;
   const items = summary.split(/[*|-]/).map(s => s.trim()).filter(s => s.length > 0);
@@ -115,7 +138,12 @@ const Experiences = () => {
               <div style={{ color: theme.colors.text }}>
                 <h3 className="vertical-timeline-element-title">{item.title}</h3>
                 <h4 className="vertical-timeline-element-subtitle">{item.name}</h4>
-                <p className="vertical-timeline-element-tech">🔧 {item.techstack}</p>
+                <TagContainer>
+                  <span style={{ marginRight: '8px', fontSize: '1.2rem' }}>🔧</span>
+                  {item.techstack.split(',').map((tech, i) => (
+                    <Tag key={i}>{tech.trim()}</Tag>
+                  ))}
+                </TagContainer>
                 {parseSummary(item.summarypoints)}
               </div>
             ) : (
@@ -134,7 +162,6 @@ const Experiences = () => {
       </VerticalTimeline>
     </TimelineSection>
   );
-
 };
 
 export default Experiences;

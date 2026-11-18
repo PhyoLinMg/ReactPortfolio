@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { FaEnvelope } from 'react-icons/fa';
 import { theme } from '../../styles/theme';
 import { Bookmark } from '../ornament/Bookmark';
@@ -66,6 +66,8 @@ const Mark = styled.a`
   font-size: 1.2rem;
   letter-spacing: 0.12em;
   line-height: 1.2;
+  min-height: 2.75rem;
+  align-content: center;
 `;
 
 const Index = styled.ol`
@@ -191,6 +193,10 @@ const Sheet = styled.nav<{ open: boolean }>`
   visibility: ${({ open }) => (open ? 'visible' : 'hidden')};
   transition: transform 0.45s ${ease}, visibility 0.45s;
 
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
   @media (min-width: ${breakpoints.lg}) {
     display: none;
   }
@@ -239,29 +245,43 @@ function useActiveSection() {
   const [active, setActive] = useState(SECTIONS[0].id);
 
   useEffect(() => {
+    const atEnd = () =>
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
     const seen = new Map<string, boolean>();
+    const pick = () => {
+      if (atEnd()) return setActive(SECTIONS[SECTIONS.length - 1].id);
+      const first = SECTIONS.find(({ id }) => seen.get(id));
+      if (first) setActive(first.id);
+    };
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => seen.set(entry.target.id, entry.isIntersecting));
-        const first = SECTIONS.find(({ id }) => seen.get(id));
-        if (first) setActive(first.id);
+        pick();
       },
       { rootMargin: '-35% 0px -55% 0px' },
     );
-    // Sections mount as their data arrives, so keep looking for late ones.
-    const attach = () => SECTIONS.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el && !seen.has(id)) {
-        seen.set(id, false);
-        observer.observe(el);
-      }
-    });
-    attach();
-    const mo = new MutationObserver(attach);
+    // Sections mount as their data arrives, so keep looking until all are found.
+    const mo = new MutationObserver(() => attach());
+    const attach = () => {
+      SECTIONS.forEach(({ id }) => {
+        const el = document.getElementById(id);
+        if (el && !seen.has(id)) {
+          seen.set(id, false);
+          observer.observe(el);
+        }
+      });
+      if (seen.size === SECTIONS.length) mo.disconnect();
+    };
     mo.observe(document.body, { childList: true, subtree: true });
+    attach();
+
+    // The last section is too short to reach the detection band; claim it at the page end.
+    window.addEventListener('scroll', pick, { passive: true });
+
     return () => {
       observer.disconnect();
       mo.disconnect();
+      window.removeEventListener('scroll', pick);
     };
   }, []);
 
@@ -346,10 +366,15 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps) => {
   const active = useActiveSection();
   const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setOpen(false);
+      menuButton.current?.focus();
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
@@ -376,12 +401,13 @@ export const Layout = ({ children }: LayoutProps) => {
           <span>Phyo Lin Mg</span>
         </Mark>
         <MenuButton
+          ref={menuButton}
           type="button"
           aria-expanded={open}
           aria-controls="section-sheet"
           onClick={() => setOpen((o) => !o)}
         >
-          {open ? 'Close' : 'Index'}
+          Index
         </MenuButton>
       </TopBar>
       <Sheet id="section-sheet" open={open} aria-label="Sections">

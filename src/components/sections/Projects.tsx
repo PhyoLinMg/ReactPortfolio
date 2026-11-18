@@ -163,8 +163,8 @@ const Projects = () => {
                       <dt>Stack</dt>
                       <dd>
                         <Medium aria-label="Technologies">
-                          {splitList(project.techused).map((tech) => (
-                            <li key={tech}>{tech}</li>
+                          {splitList(project.techused).map((tech, i) => (
+                            <li key={i}>{tech}</li>
                           ))}
                         </Medium>
                       </dd>

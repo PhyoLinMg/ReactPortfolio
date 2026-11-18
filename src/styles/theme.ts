@@ -10,7 +10,7 @@ export const theme = {
     ink: '#2A2622',
     taupe: '#6B6254',
     rule: '#B9AC95',
-    thread: '#8E8A82',
+    thread: '#7C786F',
     stamp: '#7C7468',
   },
   fonts: {

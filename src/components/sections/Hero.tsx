@@ -115,7 +115,8 @@ const Caption = styled.figcaption`
   display: grid;
   gap: 0.3rem;
 
-  h2 {
+  .title {
+    display: block;
     font-family: ${fonts.caps};
     font-weight: 600;
     font-size: 1.1rem;
@@ -178,7 +179,7 @@ const FeaturedExhibit = () => {
     <Exhibit>
       {project.image && <Mount src={project.image.url} alt={`Screenshot of ${project.title}`} eager />}
       <Caption>
-        <h2>{project.title}</h2>
+        <strong className="title">{project.title}</strong>
         {project.description && <p>{project.description}</p>}
         {role && (
           <Caps>
@@ -197,7 +198,8 @@ const FeaturedExhibit = () => {
 
 const CurrentPost = () => {
   const timeline = useCms('timeline', getTimeline);
-  if (timeline.status !== 'ready') return <Now aria-busy="true"><em>Retrieving current post…</em></Now>;
+  if (timeline.status === 'loading') return <Now aria-busy="true"><em>Retrieving current post…</em></Now>;
+  if (timeline.status === 'error') return null;
   const now = current(timeline.data);
   if (!now) return null;
   const since = now.daterange.split(/\s*[-–—]\s*/)[0].trim();
@@ -207,7 +209,7 @@ const CurrentPost = () => {
       <span>
         <strong>{now.title}</strong> at <strong>{now.name.trim()}</strong>
       </span>
-      <em>since {since}</em>
+      {since && <em>since {since}</em>}
     </Now>
   );
 };

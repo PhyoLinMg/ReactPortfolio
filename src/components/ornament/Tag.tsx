@@ -30,8 +30,10 @@ export const RibbonTag = styled.a`
     padding-right: 2.5rem;
   }
 
+  /* clip-path hides an outside outline, so the ring is drawn inside the tag */
   &:focus-visible {
-    outline-offset: 4px;
+    outline: 2px solid ${theme.colors.buff};
+    outline-offset: -6px;
   }
 `;
 

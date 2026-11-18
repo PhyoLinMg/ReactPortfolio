@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaGithub, FaLinkedin, FaMedium, FaRegCopy, FaCheck } from 'react-icons/fa';
 import { theme } from '../../styles/theme';
 import { Bookmark } from '../ornament/Bookmark';
@@ -70,11 +70,18 @@ const Copy = styled.button`
   font-family: ${fonts.caps};
   font-size: 0.9rem;
   letter-spacing: 0.14em;
-  color: ${colors.taupe};
+  color: ${colors.ink};
 
   &:hover {
     color: ${colors.ribbon};
   }
+`;
+
+const Status = styled.span`
+  font-family: ${fonts.caps};
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  color: ${colors.ribbon};
 `;
 
 const Profiles = styled.div`
@@ -94,15 +101,20 @@ const Profiles = styled.div`
 `;
 
 const Contact = () => {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<'idle' | 'done' | 'failed'>('idle');
+
+  useEffect(() => {
+    if (copied === 'idle') return;
+    const timer = window.setTimeout(() => setCopied('idle'), 3000);
+    return () => window.clearTimeout(timer);
+  }, [copied]);
 
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(EMAIL);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2200);
+      setCopied('done');
     } catch {
-      window.location.href = `mailto:${EMAIL}`;
+      setCopied('failed');
     }
   };
 
@@ -117,10 +129,14 @@ const Contact = () => {
         <Mail href={`mailto:${EMAIL}`}>
           {EMAIL.split('@')[0]}@<wbr />{EMAIL.split('@')[1]}
         </Mail>
-        <Copy type="button" onClick={copy} aria-live="polite">
-          {copied ? <FaCheck aria-hidden="true" /> : <FaRegCopy aria-hidden="true" />}
-          {copied ? 'Copied' : 'Copy address'}
+        <Copy type="button" onClick={copy}>
+          {copied === 'done' ? <FaCheck aria-hidden="true" /> : <FaRegCopy aria-hidden="true" />}
+          Copy address
         </Copy>
+        <Status role="status">
+          {copied === 'done' && 'Copied'}
+          {copied === 'failed' && 'Copy failed — select the address instead'}
+        </Status>
       </Address>
       <Profiles>
         <OutlineTag href={PROFILES.github} target="_blank" rel="noopener noreferrer">

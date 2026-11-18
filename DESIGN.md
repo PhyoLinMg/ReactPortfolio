@@ -12,7 +12,7 @@ colors:
   ink: "#2A2622"
   taupe: "#6B6254"
   rule: "#B9AC95"
-  thread: "#8E8A82"
+  thread: "#7C786F"
   stamp: "#7C7468"
 typography:
   display:
@@ -142,7 +142,7 @@ Archival paper neutrals carrying one red, used as ink rather than as fill wash.
 - **Iron-Gall Ink** (#2A2622): body text and entry titles.
 - **Ledger Taupe** (#6B6254): secondary text, italic organisation names, small-caps labels, outline-tag border. The lightest color permitted for text on buff.
 - **Ledger Rule** (#B9AC95): hairline borders and dividers, link underlines, scrollbar thumb. Stroke only.
-- **Unwoven Thread** (#8E8A82): study passages (dashed lines and node rings) and dashed error frames. Stroke only.
+- **Unwoven Thread** (#7C786F): study passages (dashed lines and node rings) and dashed error frames. Stroke only.
 - **Stamp Ink** (#7C7468): the faded circular stamp impression and its legends. Ornament only.
 
 ### Named Rules

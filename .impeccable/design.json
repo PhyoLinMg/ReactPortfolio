@@ -157,7 +157,7 @@
       "thread": {
         "role": "neutral",
         "displayName": "Unwoven Thread",
-        "canonical": "#8E8A82",
+        "canonical": "#7C786F",
         "tonalRamp": [
           "oklch(15% 0.013 84.6)",
           "oklch(27% 0.013 84.6)",
@@ -362,7 +362,7 @@
       "refersTo": "career-panel",
       "description": "Rule-bordered panel with a vertical red tab; work as solid red line, study as dashed thread, present node as a ringed dot.",
       "html": "<div class=\"ds-panel\"><p class=\"ds-panel-tab\">Career</p><div class=\"ds-ribbon\"><span class=\"ds-node is-study\"></span><i class=\"ds-seg is-study\"></i><span class=\"ds-node\"></span><i class=\"ds-seg\"></i><a href=\"#\" class=\"ds-node is-now\" aria-label=\"Present\"></a></div><div class=\"ds-years\"><span>2015</span><span>2019</span><span>2025</span></div></div>",
-      "css": ".ds-panel{position:relative;border:1px solid #B9AC95;border-radius:6px;padding:2rem 2rem 1.25rem 4.4rem;background:rgba(237,229,212,.55);background-color:#EDE5D4;} .ds-panel-tab{position:absolute;left:-1px;top:2rem;margin:0;width:2.1rem;padding:1.1rem 0 1.6rem;background:#A3141F;color:#EDE5D4;font-family:'Spectral SC','Spectral',Georgia,serif;font-weight:600;font-size:.85rem;letter-spacing:.22em;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;clip-path:polygon(0 0,50% .7rem,100% 0,100% 100%,0 100%);} .ds-ribbon{display:flex;align-items:center;} .ds-seg{flex:1;border-top:3px solid #A3141F;} .ds-seg.is-study{border-top:2px dashed #8E8A82;} .ds-node{flex:none;width:1.2rem;height:1.2rem;border-radius:50%;background:#EDE5D4;border:2px solid #A3141F;transition:box-shadow .3s cubic-bezier(0.16, 1, 0.3, 1);} .ds-node.is-study{border-color:#8E8A82;} .ds-node.is-now,.ds-node:hover{width:1.55rem;height:1.55rem;box-shadow:inset 0 0 0 3px #EDE5D4,inset 0 0 0 10px #A3141F;} .ds-node:focus-visible{outline:2px solid #A3141F;outline-offset:3px;} .ds-years{display:flex;justify-content:space-between;margin-top:.75rem;font-family:'Spectral SC','Spectral',Georgia,serif;font-weight:600;font-size:1.05rem;letter-spacing:.1em;color:#A3141F;font-variant-numeric:lining-nums;}"
+      "css": ".ds-panel{position:relative;border:1px solid #B9AC95;border-radius:6px;padding:2rem 2rem 1.25rem 4.4rem;background:rgba(237,229,212,.55);background-color:#EDE5D4;} .ds-panel-tab{position:absolute;left:-1px;top:2rem;margin:0;width:2.1rem;padding:1.1rem 0 1.6rem;background:#A3141F;color:#EDE5D4;font-family:'Spectral SC','Spectral',Georgia,serif;font-weight:600;font-size:.85rem;letter-spacing:.22em;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;clip-path:polygon(0 0,50% .7rem,100% 0,100% 100%,0 100%);} .ds-ribbon{display:flex;align-items:center;} .ds-seg{flex:1;border-top:3px solid #A3141F;} .ds-seg.is-study{border-top:2px dashed #7C786F;} .ds-node{flex:none;width:1.2rem;height:1.2rem;border-radius:50%;background:#EDE5D4;border:2px solid #A3141F;transition:box-shadow .3s cubic-bezier(0.16, 1, 0.3, 1);} .ds-node.is-study{border-color:#7C786F;} .ds-node.is-now,.ds-node:hover{width:1.55rem;height:1.55rem;box-shadow:inset 0 0 0 3px #EDE5D4,inset 0 0 0 10px #A3141F;} .ds-node:focus-visible{outline:2px solid #A3141F;outline-offset:3px;} .ds-years{display:flex;justify-content:space-between;margin-top:.75rem;font-family:'Spectral SC','Spectral',Georgia,serif;font-weight:600;font-size:1.05rem;letter-spacing:.1em;color:#A3141F;font-variant-numeric:lining-nums;}"
     },
     {
       "name": "Caps Text Action",

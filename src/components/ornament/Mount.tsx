@@ -27,6 +27,7 @@ const Window = styled.div`
   img {
     width: 100%;
     height: auto;
+    min-height: 8rem;
     max-height: 28rem;
     object-fit: contain;
     mix-blend-mode: multiply;

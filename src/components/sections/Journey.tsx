@@ -61,7 +61,7 @@ const Tab = styled.p`
 /* ---------- horizontal ribbon (tablet and up) ---------- */
 
 const Wide = styled.div`
-  @media (max-width: ${breakpoints.md}) {
+  @media (max-width: ${breakpoints.lg}) {
     display: none;
   }
 `;
@@ -84,7 +84,7 @@ const RibbonSvg = styled.svg`
   }
 `;
 
-const Node = styled.a<{ now: boolean; study: boolean; delay: number }>`
+const Node = styled.span<{ now: boolean; study: boolean; delay: number }>`
   position: absolute;
   top: 1.3rem;
   width: ${({ now }) => (now ? '1.55rem' : '1.2rem')};
@@ -95,11 +95,6 @@ const Node = styled.a<{ now: boolean; study: boolean; delay: number }>`
   box-shadow: ${({ now }) => (now ? `inset 0 0 0 3px ${colors.buff}, inset 0 0 0 10px ${colors.ribbon}` : 'none')};
   transform: translate(-50%, -50%);
   animation: ${inkIn} 0.6s ${ease} ${({ delay }) => delay}s both;
-  transition: box-shadow 0.3s ${ease};
-
-  &:hover {
-    box-shadow: inset 0 0 0 3px ${colors.buff}, inset 0 0 0 10px ${colors.ribbon};
-  }
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
@@ -108,14 +103,13 @@ const Node = styled.a<{ now: boolean; study: boolean; delay: number }>`
 
 const Labels = styled.ol`
   position: relative;
-  height: 9.5rem;
+  height: 10.5rem;
   margin-top: 0.4rem;
 `;
 
 const Label = styled.li<{ delay: number }>`
   position: absolute;
   top: 0;
-  width: 14%;
   padding-right: 0.75rem;
   animation: ${rise} 0.7s ${ease} ${({ delay }) => delay}s both;
 
@@ -126,9 +120,12 @@ const Label = styled.li<{ delay: number }>`
   a {
     text-decoration: none;
     display: block;
+    padding: 0.2rem;
+    margin: -0.2rem;
   }
 
-  a:hover strong {
+  a:hover strong,
+  a:focus-visible strong {
     color: ${colors.ribbon};
   }
 `;
@@ -201,7 +198,7 @@ const Legend = styled.div`
 const Narrow = styled.ol`
   display: none;
 
-  @media (max-width: ${breakpoints.md}) {
+  @media (max-width: ${breakpoints.lg}) {
     display: block;
   }
 `;
@@ -262,9 +259,12 @@ interface JourneyProps {
 }
 
 export const Journey = ({ items }: JourneyProps) => {
+  if (!items.length) return null;
   const ordered = [...items].reverse();
   const xs = positions(ordered.length);
   const last = ordered.length - 1;
+  // Labels never wider than the gap to the next stop, so long records cannot overlap.
+  const labelWidth = Math.min(14, ((X1 - X0) / W) * 100 / Math.max(ordered.length - 1, 1));
   const at = (i: number) => 0.25 + (DRAW * (xs[i] - X0)) / (X1 - X0) * 0.9;
 
   const meta = ordered.map((item) => {
@@ -305,20 +305,23 @@ export const Journey = ({ items }: JourneyProps) => {
           {meta.map(({ item, study, now }, i) => (
             <Node
               key={item.id}
-              href={`#record-${item.id}`}
+              aria-hidden="true"
               now={now}
               study={study}
               delay={at(i)}
               style={{ left: `${(xs[i] / W) * 100}%` }}
-              aria-label={`${item.title}, ${item.name.trim()}, ${item.daterange}`}
             />
           ))}
         </Track>
 
         <Labels>
           {meta.map(({ item, study, now, year }, i) => (
-            <Label key={item.id} delay={at(i) + 0.1} style={{ left: `calc(${(xs[i] / W) * 100}% - 0.6rem)` }}>
-              <a href={`#record-${item.id}`} tabIndex={-1}>
+            <Label
+              key={item.id}
+              delay={at(i) + 0.1}
+              style={{ left: `calc(${(xs[i] / W) * 100}% - 0.6rem)`, width: `${labelWidth}%` }}
+            >
+              <a href={`#record-${item.id}`}>
                 <Year>{year}</Year>
                 <State>{now ? 'Present' : study ? 'Study' : 'Work'}</State>
                 <Role>{item.title}</Role>
@@ -340,7 +343,7 @@ export const Journey = ({ items }: JourneyProps) => {
             <a href={`#record-${item.id}`}>
               <Year>{year}</Year>
               <Role>{item.title}</Role>
-              <Org>{now ? `${item.name.trim()} · present` : item.name.trim()}</Org>
+              <Org>{now ? `${item.name.trim()} · present` : study ? `${item.name.trim()} · study` : item.name.trim()}</Org>
             </a>
           </Stop>
         ))}

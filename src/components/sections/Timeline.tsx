@@ -158,7 +158,7 @@ const Experiences = () => {
               <Entry key={item.id} id={`record-${item.id}`} study={study} now={now}>
                 <When>
                   {formatRange(item.daterange).split(' – ').map((half, i, all) => (
-                    <span key={half}>
+                    <span key={i}>
                       {half}
                       {i < all.length - 1 ? ' –' : study ? ' · Study' : ''}
                     </span>
@@ -168,8 +168,8 @@ const Experiences = () => {
                   <Role>{item.title}</Role>
                   <Org>{item.name.trim()}</Org>
                   <Points>
-                    {summaryLines(item.summarypoints).map((line) => (
-                      <li key={line}>{line}</li>
+                    {summaryLines(item.summarypoints).map((line, i) => (
+                      <li key={i}>{line}</li>
                     ))}
                   </Points>
                   {stack.length > 0 && (

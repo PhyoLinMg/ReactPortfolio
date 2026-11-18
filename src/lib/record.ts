@@ -21,7 +21,7 @@ function point(text: string) {
 
 export function parseRange(range: string): Span {
   const [from = '', to = ''] = range.split(/\s*[-–—]\s*/);
-  const present = /present/i.test(to);
+  const present = /present|current|now/i.test(to);
   return { start: point(from), end: present ? null : point(to), present };
 }
 
@@ -51,12 +51,13 @@ const norm = (value: string) => value.trim().toLowerCase();
 
 // The role a project shipped under, when the CMS names them the same.
 export function roleFor(project: Project, timeline: TimelineItem[]): TimelineItem | undefined {
-  return timeline.find((item) => norm(item.name) === norm(project.title));
+  const title = norm(project.title);
+  return title ? timeline.find((item) => norm(item.name) === title) : undefined;
 }
 
 export function current(timeline: TimelineItem[]): TimelineItem | undefined {
-  return timeline.find((item) => item.timelinetype === 'work' && parseRange(item.daterange).present)
-    ?? timeline.find((item) => item.timelinetype === 'work');
+  // Only a role still marked as ongoing counts; an ended role is never shown as "now".
+  return timeline.find((item) => item.timelinetype === 'work' && parseRange(item.daterange).present);
 }
 
 export function androidSince(timeline: TimelineItem[]): number | undefined {
@@ -68,7 +69,7 @@ export function androidSince(timeline: TimelineItem[]): number | undefined {
 }
 
 export function imageUrl(url: string, width: number): string {
-  return `${url}?auto=format&fit=max&w=${width}`;
+  return `${url}${url.includes('?') ? '&' : '?'}auto=format&fit=max&w=${width}`;
 }
 
 export function liveLabel(url: string): string {

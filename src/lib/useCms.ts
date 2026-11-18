@@ -1,30 +1,34 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
 
-type Entry<T> = { promise: Promise<T>; value?: T; error?: unknown };
+type Entry<T> =
+  | { status: 'loading' }
+  | { status: 'error' }
+  | { status: 'ready'; data: T };
 
 // One request per query, shared by every section that reads it.
-const cache = new Map<string, Entry<unknown>>();
+const entries = new Map<string, Entry<unknown>>();
+const listeners = new Map<string, Set<() => void>>();
 
-function load<T>(key: string, fetcher: () => Promise<T>): Entry<T> {
-  let entry = cache.get(key) as Entry<T> | undefined;
-  if (!entry) {
-    const created: Entry<T> = {
-      promise: fetcher().then(
-        (value) => {
-          created.value = value;
-          return value;
-        },
-        (error) => {
-          created.error = error;
-          throw error;
-        },
-      ),
-    };
-    created.promise.catch(() => undefined);
-    cache.set(key, created as Entry<unknown>);
-    entry = created;
-  }
-  return entry;
+function notify(key: string) {
+  listeners.get(key)?.forEach((listener) => listener());
+}
+
+function start<T>(key: string, fetcher: () => Promise<T>) {
+  const loading: Entry<T> = { status: 'loading' };
+  entries.set(key, loading);
+  fetcher().then(
+    (data) => {
+      // Ignore a request that a retry has already replaced.
+      if (entries.get(key) !== loading) return;
+      entries.set(key, { status: 'ready', data });
+      notify(key);
+    },
+    () => {
+      if (entries.get(key) !== loading) return;
+      entries.set(key, { status: 'error' });
+      notify(key);
+    },
+  );
 }
 
 export type CmsState<T> =
@@ -33,27 +37,28 @@ export type CmsState<T> =
   | { status: 'ready'; data: T };
 
 export function useCms<T>(key: string, fetcher: () => Promise<T>): CmsState<T> {
-  const [, setTick] = useState(0);
-  const [attempt, setAttempt] = useState(0);
-  const entry = load(key, fetcher);
+  if (!entries.has(key)) start(key, fetcher);
 
-  useEffect(() => {
-    let live = true;
-    entry.promise.then(
-      () => live && setTick((t) => t + 1),
-      () => live && setTick((t) => t + 1),
-    );
-    return () => {
-      live = false;
-    };
-  }, [entry, attempt]);
+  const subscribe = useCallback(
+    (listener: () => void) => {
+      let set = listeners.get(key);
+      if (!set) listeners.set(key, (set = new Set()));
+      set.add(listener);
+      return () => {
+        set.delete(listener);
+      };
+    },
+    [key],
+  );
+
+  const entry = useSyncExternalStore(subscribe, () => entries.get(key) as Entry<T>);
 
   const retry = useCallback(() => {
-    cache.delete(key);
-    setAttempt((a) => a + 1);
-  }, [key]);
+    // A retry already in flight is not restarted by a second click.
+    if (entries.get(key)?.status !== 'error') return;
+    start(key, fetcher);
+    notify(key);
+  }, [key, fetcher]);
 
-  if (entry.value !== undefined) return { status: 'ready', data: entry.value };
-  if (entry.error !== undefined) return { status: 'error', retry };
-  return { status: 'loading' };
+  return entry.status === 'error' ? { status: 'error', retry } : entry;
 }

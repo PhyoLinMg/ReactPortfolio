@@ -19,5 +19,14 @@ const GET_TIMELINE = `
 
 export async function getTimeline(): Promise<TimelineItem[]> {
   const data = await datoCMSClient.request<{ allTimelines: TimelineItem[] }>(GET_TIMELINE);
-  return data.allTimelines;
+  // CMS fields are optional; never let an unfinished record reach the page as null.
+  return data.allTimelines.map((item) => ({
+    ...item,
+    timelinetype: item.timelinetype ?? 'work',
+    name: item.name ?? '',
+    title: item.title ?? '',
+    techstack: item.techstack ?? '',
+    summarypoints: item.summarypoints ?? '',
+    daterange: item.daterange ?? '',
+  }));
 }

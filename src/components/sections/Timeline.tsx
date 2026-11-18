@@ -1,166 +1,190 @@
 import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
 import { theme } from '../../styles/theme';
-import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
-import 'react-vertical-timeline-component/style.min.css';
-import { MdOutlineWork as WorkIcon } from 'react-icons/md';
-import { IoSchool as SchoolIcon } from 'react-icons/io5';
+import { SectionHeading } from '../ornament/SectionHeading';
+import { Loading, LoadError } from '../ornament/Pending';
+import { useCms } from '../../lib/useCms';
 import { getTimeline } from '../../network/client/getTimeline';
-import { TimelineItem } from '../../network/model/Timeline';
-import { FaStar } from 'react-icons/fa';
+import { formatRange, parseRange, splitList, summaryLines } from '../../lib/record';
 
+const { colors, fonts, space, breakpoints } = theme;
 
-const TimelineSection = styled.section`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  color: ${theme.colors.textLight};
-  padding: ${theme.spacing.lg} ${theme.spacing.md};
-
-  @media (min-width: ${theme.breakpoints.md}) {
-    padding: ${theme.spacing.xl} ${theme.spacing.lg};
-  }
+const Section = styled.section`
+  padding: ${space.xxl} clamp(1rem, 4vw, 4.5rem) ${space.xl};
 `;
-const SectionTitle = styled(motion.h2)`
-  text-align: center;
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  margin-bottom: ${theme.spacing.xl};
-  color: ${theme.colors.light};
-  position: relative;
 
+const Ledger = styled.ol`
+  list-style: none;
+  max-width: 62rem;
+`;
+
+const Entry = styled.li<{ study: boolean; now: boolean }>`
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0 0 ${space.xl} 2.6rem;
+  scroll-margin-top: 5rem;
+
+  /* the ribbon passage from this entry down to the one before it */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0.62rem;
+    top: 1.2rem;
+    bottom: 0;
+    border-left: ${({ study }) => (study ? `2px dashed ${colors.thread}` : `5px solid ${colors.ribbon}`)};
+  }
+
+  &:last-of-type::before {
+    bottom: 60%;
+    border-left-style: dashed;
+  }
+
+  /* station node */
   &::after {
     content: '';
     position: absolute;
-    bottom: -${theme.spacing.md};
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background-color: ${theme.colors.light};
-    border-radius: 2px;
+    left: 0;
+    top: 0.45rem;
+    width: 1.45rem;
+    height: 1.45rem;
+    border-radius: 50%;
+    background: ${colors.buff};
+    border: 2px solid ${({ study }) => (study ? colors.thread : colors.ribbon)};
+    box-shadow: ${({ now }) => (now ? `inset 0 0 0 3px ${colors.buff}, inset 0 0 0 10px ${colors.ribbon}` : 'none')};
+  }
+
+  &:target h3 {
+    color: ${colors.ribbon};
+  }
+
+  @media (min-width: ${breakpoints.md}) {
+    grid-template-columns: 12rem 1fr;
+    column-gap: ${space.lg};
+    padding-left: 0;
+
+    &::before { left: calc(12rem + 0.62rem); }
+    &::after { left: 12rem; }
+    > div { padding-left: 2.6rem; }
   }
 `;
 
-const TagContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-`;
+const When = styled.p`
+  font-family: ${fonts.caps};
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: ${colors.ribbon};
+  font-variant-numeric: lining-nums;
+  padding-top: 0.25rem;
 
-const Tag = styled.span`
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  padding: 4px 12px;
-  border-radius: 16px;
-  font-size: 0.85rem;
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.2s ease;
+  span {
+    white-space: nowrap;
+  }
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
+  span + span::before {
+    content: ' ';
+    white-space: normal;
+  }
+
+  @media (min-width: ${breakpoints.md}) {
+    text-align: right;
   }
 `;
 
-const parseSummary = (summary: string) => {
-  if (!summary) return null;
-  const items = summary.split(/[*|-]/).map(s => s.trim()).filter(s => s.length > 0);
+const Role = styled.h3`
+  font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+  transition: color 0.3s;
+`;
 
-  if (items.length > 1 || summary.includes('*') || summary.includes('-')) {
-    return (
-      <ul style={{ paddingLeft: '20px', marginTop: '8px', listStyleType: 'disc' }}>
-        {items.map((item, index) => (
-          <li key={index} style={{ marginBottom: '4px' }}>{item}</li>
-        ))}
-      </ul>
-    );
+const Org = styled.p`
+  font-style: italic;
+  font-size: 1.15rem;
+  color: ${colors.taupe};
+`;
+
+const Points = styled.ul`
+  margin-top: ${space.md};
+  display: grid;
+  gap: 0.35rem;
+  max-width: 62ch;
+
+  li {
+    position: relative;
+    padding-left: 1.3rem;
   }
-  return <p>{summary}</p>;
-};
+
+  li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75em;
+    width: 0.65rem;
+    border-top: 1.5px solid ${colors.ribbon};
+  }
+`;
+
+const Stack = styled.p`
+  margin-top: ${space.md};
+  font-family: ${fonts.caps};
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+
+  b {
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    color: ${colors.taupe};
+    margin-right: 0.6rem;
+  }
+`;
 
 const Experiences = () => {
-
-  const [timeLineData, setTimeLineData] = useState<TimelineItem[] | null>(null);
-  useEffect(() => {
-    async function fetchTimelineItem() {
-      const data = await getTimeline();
-      setTimeLineData(data);
-    }
-    fetchTimelineItem();
-  }, []);
-  if (!timeLineData) return <div>Loading...</div>;
+  const timeline = useCms('timeline', getTimeline);
 
   return (
-    <TimelineSection id="timeline" role="region" aria-label="Timeline">
-      <SectionTitle
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        role="heading"
-        aria-level={2}
-      >
-        Timeline
-      </SectionTitle>
-      <VerticalTimeline>
-        {timeLineData.map((item, index) => (
-          <VerticalTimelineElement
-            key={index}
-            className={`vertical-timeline-element--${item.timelinetype}`}
-            contentStyle={
-              item.timelinetype === "work"
-                ? index === 0
-                  ? { background: '#14B473', color: '#fff' }
-                  : { background: 'rgb(163, 184, 216)', color: '#fff' }
-                : { background: 'rgb(163, 184, 216)', color: '#fff' } // Lighter red for education
-            }
-            contentArrowStyle={
-              item.timelinetype === "work"
-                ? { borderRight: index === 0 ? '7px solid #14B473' : '7px solid rgb(240, 240, 240)' }
-                : { borderRight: '7px solid rgb(255, 224, 230)' }
-            }
-            date={item.daterange}
-            iconStyle={
-              item.timelinetype === "work"
-                ? { background: 'rgb(33, 150, 243)', color: '#fff' }
-                : { background: 'rgb(255, 160, 200)', color: '#fff' } // Softer red for education icon
-            }
-            icon={item.timelinetype === "work" ? <WorkIcon /> : <SchoolIcon />}
-          >
-            {item.timelinetype === "work" ? (
-              <div style={{ color: theme.colors.text }}>
-                <h3 className="vertical-timeline-element-title">{item.title}</h3>
-                <h4 className="vertical-timeline-element-subtitle">{item.name}</h4>
-                <TagContainer>
-                  <span style={{ marginRight: '8px', fontSize: '1.2rem' }}>🔧</span>
-                  {item.techstack.split(',').map((tech, i) => (
-                    <Tag key={i}>{tech.trim()}</Tag>
+    <Section id="timeline" aria-labelledby="timeline-title">
+      <SectionHeading id="timeline-title" note="Every role, newest first.">
+        The record
+      </SectionHeading>
+
+      {timeline.status === 'loading' && <Loading label="Retrieving the record" />}
+      {timeline.status === 'error' && <LoadError what="career record" retry={timeline.retry} />}
+      {timeline.status === 'ready' && (
+        <Ledger>
+          {timeline.data.map((item) => {
+            const study = item.timelinetype === 'education';
+            const now = parseRange(item.daterange).present;
+            const stack = splitList(item.techstack);
+            return (
+              <Entry key={item.id} id={`record-${item.id}`} study={study} now={now}>
+                <When>
+                  {formatRange(item.daterange).split(' – ').map((half, i, all) => (
+                    <span key={half}>
+                      {half}
+                      {i < all.length - 1 ? ' –' : study ? ' · Study' : ''}
+                    </span>
                   ))}
-                </TagContainer>
-                {parseSummary(item.summarypoints)}
-              </div>
-            ) : (
-              <div style={{ color: 'black' }}>
-                <h3 className="vertical-timeline-element-title">{item.name}</h3>
-                <h4 className="vertical-timeline-element-subtitle">{item.title}</h4>
-                {parseSummary(item.summarypoints)}
-              </div>
-            )}
-          </VerticalTimelineElement>
-        ))}
-        <VerticalTimelineElement
-          iconStyle={{ background: 'rgb(16, 204, 82)', color: '#fff' }}
-          icon={<FaStar />}
-        />
-      </VerticalTimeline>
-    </TimelineSection>
+                </When>
+                <div>
+                  <Role>{item.title}</Role>
+                  <Org>{item.name.trim()}</Org>
+                  <Points>
+                    {summaryLines(item.summarypoints).map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </Points>
+                  {stack.length > 0 && (
+                    <Stack>
+                      <b>Stack</b>
+                      {stack.join(' · ')}
+                    </Stack>
+                  )}
+                </div>
+              </Entry>
+            );
+          })}
+        </Ledger>
+      )}
+    </Section>
   );
 };
 

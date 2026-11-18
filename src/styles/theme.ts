@@ -1,47 +1,38 @@
 export const theme = {
   colors: {
-    primary: '#2A2D3E',
-    secondary: '#454964',
-    accent: '#14B473',
-    light: '#14B473',
-    text: '#ffffff',
-    textLight: '#ffffff',
-    textDark: '#ffffff',
-    glass: {
-      background: 'rgba(255, 255, 255, 0.05)',
-      border: 'transparent',
-      card: 'rgba(42, 45, 62, 0.2)',
-    },
-    gradient: {
-      main: 'linear-gradient(135deg, #2A2D3E 0%, #454964 50%, #2A2D3E 100%)',
-      accent: 'linear-gradient(135deg, #14B473 0%, #14B473 100%)',
-      glass: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-    },
-    overlay: {
-      light: 'rgba(255, 255, 255, 0.1)',
-      dark: 'rgba(42, 45, 62, 0.3)',
-    }
+    buff: '#EDE5D4',
+    buffDeep: '#E3D9C4',
+    mat: '#D9CDB4',
+    ribbon: '#A3141F',
+    ribbonDeep: '#7E0E17',
+    ribbonSheen: '#C8323C',
+    ruby: '#EBCBC4',
+    ink: '#2A2622',
+    taupe: '#6B6254',
+    rule: '#B9AC95',
+    thread: '#8E8A82',
+    stamp: '#7C7468',
   },
   fonts: {
-    body: "'Inter', sans-serif",
-    heading: "'Poppins', sans-serif",
+    display: "'Instrument Serif', 'Times New Roman', serif",
+    body: "'Spectral', Georgia, serif",
+    caps: "'Spectral SC', 'Spectral', Georgia, serif",
   },
   breakpoints: {
     sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px',
+    md: '900px',
+    lg: '1180px',
   },
-  spacing: {
-    xs: '0.25rem',
-    sm: '0.5rem',
-    md: '1rem',
+  space: {
+    xs: '0.375rem',
+    sm: '0.75rem',
+    md: '1.25rem',
     lg: '2rem',
-    xl: '4rem',
+    xl: '3.5rem',
+    xxl: '6rem',
   },
-  transitions: {
-    default: '0.3s ease',
-  },
+  rail: '17rem',
+  ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
 };
 
 export type Theme = typeof theme;

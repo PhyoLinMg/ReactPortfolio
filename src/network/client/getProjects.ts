@@ -21,5 +21,14 @@ const GET_PROJECTS = `
 
 export async function getProjects(): Promise<Project[]> {
   const data = await datoCMSClient.request<{ allProjects: Project[] }>(GET_PROJECTS);
-  return data.allProjects;
+  // CMS fields are optional; never let an unfinished record reach the page as null.
+  return data.allProjects.map((project) => ({
+    ...project,
+    title: project.title ?? '',
+    description: project.description ?? '',
+    techused: project.techused ?? '',
+    liveurl: project.liveurl ?? '',
+    githuburl: project.githuburl ?? '',
+    image: project.image?.url ? project.image : null,
+  }));
 }

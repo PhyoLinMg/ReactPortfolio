@@ -21,5 +21,9 @@ const GET_TIMELINE = `
 
 export async function getSkills(): Promise<AllSkillcategory[]> {
   const data = await datoCMSClient.request<{ allSkillcategories: AllSkillcategory[] }>(GET_TIMELINE);
-  return data.allSkillcategories;
+  return data.allSkillcategories.map((category) => ({
+    ...category,
+    title: category.title ?? '',
+    skills: (category.skills ?? []).filter((skill) => skill?.name),
+  }));
 }

@@ -1,9 +1,13 @@
 import { Global, css } from '@emotion/react';
 import { theme } from './theme';
 
-const globalStyles = css`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+const { colors, fonts } = theme;
 
+// Laid-paper grain: fine turbulence plus faint horizontal laid lines.
+const grain = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.36 0 0 0 0 0.27 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")`;
+const laid = `repeating-linear-gradient(0deg, rgba(107, 98, 84, 0.035) 0 1px, transparent 1px 7px)`;
+
+const globalStyles = css`
   *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -11,176 +15,86 @@ const globalStyles = css`
   }
 
   html {
-    scroll-behavior: smooth;
     font-size: 16px;
-    overflow-x: hidden;
-    width: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
   }
 
   body {
-    font-family: ${theme.fonts.body};
-    color: ${theme.colors.text};
+    font-family: ${fonts.body};
+    font-size: 1.0625rem;
     line-height: 1.6;
+    color: ${colors.ink};
+    background-color: ${colors.buff};
+    background-image: ${grain}, ${laid};
     min-height: 100vh;
-    width: 100%;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: ${theme.colors.gradient.main};
-    background-attachment: fixed;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    caret-color: ${colors.ribbon};
   }
 
-  #root {
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  h1, h2, h3 {
+    font-family: ${fonts.display};
+    font-weight: 400;
+    line-height: 1.05;
+    text-wrap: balance;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: ${theme.fonts.heading};
-    font-weight: 600;
-    line-height: 1.3;
-  }
+  p { text-wrap: pretty; }
 
   a {
     color: inherit;
-    text-decoration: none;
+    text-decoration-color: ${colors.rule};
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
   }
 
   button {
-    cursor: pointer;
-    border: none;
+    font: inherit;
+    color: inherit;
     background: none;
-    font-family: inherit;
+    border: none;
+    cursor: pointer;
   }
 
   img {
     max-width: 100%;
-    height: auto;
     display: block;
   }
 
-  section {
-    width: 100%;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    border: none;
-    &::before,
-    &::after {
-      display: none;
-    }
+  ul, ol { list-style: none; }
+
+  ::selection {
+    background: ${colors.ruby};
+    color: ${colors.ribbonDeep};
   }
 
-  .container {
-    width: min(90%, 1200px);
-    margin-inline: auto;
-    padding-inline: ${theme.spacing.md};
-    position: relative;
+  :focus-visible {
+    outline: 2px solid ${colors.ribbon};
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 
-  @media (max-width: ${theme.breakpoints.sm}) {
-    html {
-      font-size: 14px;
-    }
+  html {
+    scrollbar-color: ${colors.rule} ${colors.buffDeep};
   }
 
-  @media print {
-    html {
-      font-size: 12pt;
-    }
-
-    body {
-      background: white !important;
-      color: black !important;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Ensure proper page breaks */
-    section {
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-
-    h1, h2, h3 {
-      page-break-after: avoid;
-      break-after: avoid;
-    }
-
-    img {
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-
-    /* Remove unnecessary elements */
-    .no-print,
-    button,
-    nav,
-    .social-links {
-      display: none !important;
-    }
-
-    /* Ensure links are useful in printed version */
-    a {
-      text-decoration: none !important;
-      color: black !important;
-    }
-
-    a[href^="http"]:after {
-      content: " (" attr(href) ")";
-      font-size: 0.8em;
-      font-style: italic;
-    }
-
-    /* Improve readability */
-    p, li {
-      orphans: 3;
-      widows: 3;
-    }
-
-    /* Reset backgrounds and colors */
-    * {
-      background: transparent !important;
-      color: black !important;
-      text-shadow: none !important;
-      filter: none !important;
-      -ms-filter: none !important;
-      box-shadow: none !important;
-    }
-
-    /* Add page numbers */
-    @page {
-      margin: 2cm;
-    }
-
-    @page :first {
-      margin-top: 3cm;
-    }
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: ${theme.colors.glass.background};
-  }
-
+  ::-webkit-scrollbar { width: 12px; }
+  ::-webkit-scrollbar-track { background: ${colors.buffDeep}; }
   ::-webkit-scrollbar-thumb {
-    background: ${theme.colors.glass.card};
-    border-radius: 5px;
-    border: 2px solid ${theme.colors.glass.border};
+    background: ${colors.rule};
+    border: 3px solid ${colors.buffDeep};
+    border-radius: 6px;
   }
+  ::-webkit-scrollbar-thumb:hover { background: ${colors.ribbon}; }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: ${theme.colors.accent};
-  }
-
-  /* Screen reader only utility class */
   .sr-only {
     position: absolute;
     width: 1px;
@@ -191,6 +105,16 @@ const globalStyles = css`
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  @media print {
+    body { background: white; }
+    nav, .no-print { display: none !important; }
+    section { break-inside: avoid; }
+    a[href^="http"]::after {
+      content: " (" attr(href) ")";
+      font-size: 0.8em;
+    }
   }
 `;
 

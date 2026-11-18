@@ -5,5 +5,5 @@ export interface Project {
     techused: string;
     liveurl: string;
     githuburl: string;
-    image: { url: string };
+    image: { url: string } | null;
   }

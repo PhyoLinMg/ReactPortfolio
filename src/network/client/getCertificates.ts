@@ -17,5 +17,10 @@ const GET_CERTIFICATES = `
 
 export async function getCertificates(): Promise<Certificate[]> {
   const data = await datoCMSClient.request<{ allCertificates: Certificate[] }>(GET_CERTIFICATES);
-  return data.allCertificates;
+  return data.allCertificates.map((cert) => ({
+    ...cert,
+    title: cert.title ?? '',
+    description: cert.description ?? '',
+    url: cert.url ?? '',
+  }));
 }

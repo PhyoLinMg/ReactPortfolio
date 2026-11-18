@@ -1,261 +1,139 @@
 import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { FaGithub, FaLinkedin, FaMedium, FaRegCopy, FaCheck } from 'react-icons/fa';
 import { theme } from '../../styles/theme';
-import { FaEnvelope, FaGithub, FaLinkedin, FaMedium } from 'react-icons/fa';
+import { Bookmark } from '../ornament/Bookmark';
+import { OutlineTag } from '../ornament/Tag';
+import { EMAIL, PROFILES } from '../../lib/contact';
 
-const ContactSection = styled.section`
+const { colors, fonts, space, breakpoints, ease } = theme;
+
+const Section = styled.section`
+  margin: ${space.xxl} clamp(1rem, 4vw, 4.5rem) ${space.xxl};
+  padding: clamp(2rem, 5vw, 4rem);
   position: relative;
-  overflow: hidden;
-  min-height: 100vh;
+  border: 1px solid ${colors.ribbon};
+  border-radius: 6px;
+  background: rgba(235, 203, 196, 0.22);
+`;
+
+const Tab = styled(Bookmark)`
+  position: absolute;
+  top: -4px;
+  left: clamp(2rem, 5vw, 4rem);
+`;
+
+const Title = styled.h2`
+  margin-top: 1.25rem;
+  font-size: clamp(3rem, 7vw, 5rem);
+  color: ${colors.ribbon};
+`;
+
+const Text = styled.p`
+  margin-top: ${space.md};
+  font-size: 1.2rem;
+  font-style: italic;
+  max-width: 48ch;
+`;
+
+const Address = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: ${theme.colors.textLight};
-  padding: ${theme.spacing.lg} 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ${space.sm} ${space.md};
+  margin-top: ${space.lg};
+`;
 
-  @media (min-width: ${theme.breakpoints.md}) {
-    padding: ${theme.spacing.xl} 0;
-  }
+const Mail = styled.a`
+  font-family: ${fonts.display};
+  font-size: clamp(1.2rem, 5.6vw, 3rem);
+  line-height: 1.15;
+  color: ${colors.ink};
+  text-decoration: underline;
+  text-decoration-color: ${colors.ribbon};
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+  overflow-wrap: normal;
+  transition: color 0.3s ${ease};
 
-  .container {
-    position: relative;
-    z-index: 2;
-    width: 95%;
-    margin: 0 auto;
-
-    @media (min-width: ${theme.breakpoints.sm}) {
-      width: 90%;
-    }
+  &:hover {
+    color: ${colors.ribbon};
   }
 `;
 
-const SectionTitle = styled(motion.h2)`
-  text-align: center;
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  margin-bottom: ${theme.spacing.lg};
-  color: ${theme.colors.light};
-  position: relative;
-
-  @media (min-width: ${theme.breakpoints.md}) {
-    margin-bottom: ${theme.spacing.xl};
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -${theme.spacing.md};
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background-color: ${theme.colors.accent};
-    border-radius: 2px;
-  }
-`;
-
-const ContactContent = styled.div`
-  max-width: 600px;
-  margin: ${theme.spacing.lg} auto;
-  text-align: center;
-  background: ${theme.colors.glass.background};
-  backdrop-filter: blur(8px);
-  padding: ${theme.spacing.lg};
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(246, 177, 122, 0.15);
-
-  @media (min-width: ${theme.breakpoints.md}) {
-    margin: ${theme.spacing.xl} auto;
-    padding: ${theme.spacing.xl};
-  }
-`;
-
-const ContactText = styled(motion.p)`
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  margin-bottom: ${theme.spacing.lg};
-  color: ${theme.colors.textLight};
-  line-height: 1.8;
-  opacity: 0.9;
-
-  @media (min-width: ${theme.breakpoints.md}) {
-    margin-bottom: ${theme.spacing.xl};
-  }
-`;
-
-const ContactEmail = styled(motion.a)`
+const Copy = styled.button`
   display: inline-flex;
   align-items: center;
-  gap: ${theme.spacing.sm};
-  font-size: clamp(0.9rem, 2vw, 1.3rem);
-  color: ${theme.colors.accent};
-  margin-bottom: ${theme.spacing.lg};
-  padding: ${theme.spacing.sm} ${theme.spacing.lg};
-  border-radius: 30px;
-  transition: all ${theme.transitions.default};
-  font-weight: 500;
-  background: ${theme.colors.glass.card};
-  border: 1px solid ${theme.colors.accent};
-  word-break: break-all;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0 0.2rem;
+  font-family: ${fonts.caps};
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  color: ${colors.taupe};
 
-  @media (min-width: ${theme.breakpoints.sm}) {
-    word-break: normal;
-    padding: ${theme.spacing.md} ${theme.spacing.lg};
+  &:hover {
+    color: ${colors.ribbon};
   }
+`;
 
-  svg {
-    font-size: 1.2em;
-    flex-shrink: 0;
+const Profiles = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${space.sm};
+  margin-top: ${space.xl};
+  padding-top: ${space.lg};
+  border-top: 1px solid ${colors.rule};
 
-    @media (min-width: ${theme.breakpoints.md}) {
-      font-size: 1.4em;
+  @media (max-width: ${breakpoints.sm}) {
+    a {
+      flex: 1 1 8rem;
+      justify-content: center;
     }
-  }
-
-  &:hover {
-    background: ${theme.colors.gradient.accent};
-    color: ${theme.colors.textDark};
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px ${theme.colors.overlay.dark};
-  }
-`;
-
-const SocialLinks = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  gap: ${theme.spacing.md};
-  margin-top: ${theme.spacing.lg};
-
-  @media (min-width: ${theme.breakpoints.md}) {
-    gap: ${theme.spacing.lg};
-    margin-top: ${theme.spacing.xl};
-  }
-`;
-
-const SocialLink = styled(motion.a)`
-  color: ${theme.colors.accent};
-  font-size: 1.6rem;
-  transition: all ${theme.transitions.default};
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: ${theme.colors.glass.card};
-  box-shadow: 0 4px 12px rgba(246, 177, 122, 0.1);
-
-  @media (min-width: ${theme.breakpoints.md}) {
-    width: 60px;
-    height: 60px;
-    font-size: 2rem;
-  }
-
-  &:hover {
-    color: ${theme.colors.light};
-    transform: translateY(-3px) rotate(8deg);
-    box-shadow: 0 6px 16px rgba(246, 177, 122, 0.2);
-    background: ${theme.colors.gradient.glass};
   }
 `;
 
 const Contact = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
+  const [copied, setCopied] = useState(false);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2200);
+    } catch {
+      window.location.href = `mailto:${EMAIL}`;
+    }
   };
 
   return (
-    <ContactSection id="contact" role="region" aria-label="Contact Information">
-      <div className="container">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <SectionTitle 
-            variants={itemVariants}
-            role="heading"
-            aria-level={2}
-          >
-            Get In Touch
-          </SectionTitle>
-          <ContactContent role="article">
-            <ContactText 
-              variants={itemVariants}
-              role="paragraph"
-            >
-              I'm always interested in hearing about new projects and opportunities.
-              Whether you have a question or just want to say hi, feel free to reach out!
-            </ContactText>
-            <ContactEmail 
-              href="mailto:phyolinmg.dev@.gmail.com"
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Send me an email at phyolinmg.dev@gmail.com"
-            >
-              <FaEnvelope aria-hidden="true" />
-              <span>phyolinmg.dev@gmail.com</span>
-            </ContactEmail>
-            <SocialLinks 
-              variants={itemVariants}
-              role="list"
-              aria-label="Social media links"
-            >
-              <SocialLink 
-                href="https://github.com/PhyoLinMg"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -5 }}
-                role="listitem"
-                aria-label="Visit my GitHub profile"
-              >
-                <FaGithub aria-hidden="true" />
-                <span className="sr-only">GitHub</span>
-              </SocialLink>
-              <SocialLink 
-                href="https://linkedin.com/phyolinmg1998/"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -5 }}
-                role="listitem"
-                aria-label="Connect with me on LinkedIn"
-              >
-                <FaLinkedin aria-hidden="true" />
-                <span className="sr-only">LinkedIn</span>
-              </SocialLink>
-              <SocialLink 
-                href="https://medium.com/@linmgdev"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -5 }}
-                role="listitem"
-                aria-label="Follow me on Twitter"
-              >
-                <FaMedium aria-hidden="true" />
-                <span className="sr-only">Medium</span>
-              </SocialLink>
-            </SocialLinks>
-          </ContactContent>
-        </motion.div>
-      </div>
-    </ContactSection>
+    <Section id="contact" aria-labelledby="contact-title">
+      <Tab size={46} />
+      <Title id="contact-title">Get in touch</Title>
+      <Text>
+        Hiring for Android, SDK or mobile work? Email is the quickest way to reach me.
+      </Text>
+      <Address>
+        <Mail href={`mailto:${EMAIL}`}>
+          {EMAIL.split('@')[0]}@<wbr />{EMAIL.split('@')[1]}
+        </Mail>
+        <Copy type="button" onClick={copy} aria-live="polite">
+          {copied ? <FaCheck aria-hidden="true" /> : <FaRegCopy aria-hidden="true" />}
+          {copied ? 'Copied' : 'Copy address'}
+        </Copy>
+      </Address>
+      <Profiles>
+        <OutlineTag href={PROFILES.github} target="_blank" rel="noopener noreferrer">
+          <FaGithub aria-hidden="true" /> GitHub
+        </OutlineTag>
+        <OutlineTag href={PROFILES.linkedin} target="_blank" rel="noopener noreferrer">
+          <FaLinkedin aria-hidden="true" /> LinkedIn
+        </OutlineTag>
+        <OutlineTag href={PROFILES.medium} target="_blank" rel="noopener noreferrer">
+          <FaMedium aria-hidden="true" /> Medium
+        </OutlineTag>
+      </Profiles>
+    </Section>
   );
 };
 

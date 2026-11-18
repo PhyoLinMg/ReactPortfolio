@@ -1,231 +1,78 @@
 import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
 import { theme } from '../../styles/theme';
-
-
-import { useEffect, useState } from 'react';
-
-import { AllSkillcategory } from '../../network/model/SkillCategory';
-
+import { SectionHeading } from '../ornament/SectionHeading';
+import { Loading, LoadError } from '../ornament/Pending';
+import { useCms } from '../../lib/useCms';
 import { getSkills } from '../../network/client/getSkills';
-import { techIcons } from '../icon';
-import { FaToolbox } from 'react-icons/fa';
 
-const SkillsSection = styled.section`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  color: ${theme.colors.textLight};
-  padding: ${theme.spacing.lg} ${theme.spacing.md};
+const { colors, fonts, space, breakpoints } = theme;
 
-  @media (min-width: ${theme.breakpoints.md}) {
-    padding: ${theme.spacing.xl} ${theme.spacing.lg};
-  }
+const Section = styled.section`
+  padding: ${space.xxl} clamp(1rem, 4vw, 4.5rem) ${space.xl};
 `;
 
-const SectionTitle = styled(motion.h2)`
-  text-align: center;
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  margin-bottom: ${theme.spacing.xl};
-  color: ${theme.colors.light};
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -${theme.spacing.md};
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background-color: ${theme.colors.light};
-    border-radius: 2px;
-  }
-`;
-
-const SkillsContainer = styled.div`
+const Columns = styled.div`
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: ${theme.spacing.lg};
-  width: 100%;
-  max-width: 1200px;
-  margin-top: ${theme.spacing.xl};
+  gap: ${space.xl} ${space.lg};
 
-  @media (min-width: ${theme.breakpoints.md}) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: ${theme.spacing.xl};
+  @media (min-width: ${breakpoints.sm}) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1360px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 `;
 
-const SkillCategory = styled(motion.div)`
-  background: ${theme.colors.glass.background};
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: ${theme.spacing.lg};
-  transition: all ${theme.transitions.default};
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  margin: 0 auto;
-  width: 100%;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(246, 177, 122, 0.15);
+const Category = styled.div`
+  h3 {
+    font-family: ${fonts.caps};
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.16em;
+    color: ${colors.ribbon};
+    padding-bottom: ${space.sm};
+    border-bottom: 1.5px solid ${colors.ribbon};
   }
 `;
 
-const CategoryTitle = styled.h3`
-  font-size: clamp(1.5rem, 3vw, 1.75rem);
-  margin-bottom: ${theme.spacing.xl};
-  color: ${theme.colors.light};
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing.sm};
-  font-weight: 600;
-  position: relative;
-  padding-bottom: ${theme.spacing.md};
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background-color: ${theme.colors.accent};
-    border-radius: 2px;
-  }
-
-  svg {
-    font-size: clamp(1.75rem, 3vw, 2rem);
-    color: ${theme.colors.accent};
+const Items = styled.ul`
+  li {
+    padding: 0.6rem 0;
+    border-bottom: 1px dotted ${colors.rule};
+    font-size: 1.12rem;
   }
 `;
 
-const SkillsList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: ${theme.spacing.md};
-  flex: 1;
-  width: 100%;
-`;
-
-const SkillItem = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing.sm};
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
-  padding: ${theme.spacing.md};
-  border-radius: 12px;
-  transition: all ${theme.transitions.default};
-  background: ${theme.colors.glass.card};
-
-  svg {
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
-    color: ${theme.colors.accent};
-    transition: all ${theme.transitions.default};
-  }
-
-  &:hover {
-    background: ${theme.colors.gradient.glass};
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(246, 177, 122, 0.2);
-
-    svg {
-      transform: scale(1.1) rotate(5deg);
-      color: ${theme.colors.light};
-    }
-  }
-`;
+const hasAndroid = (names: string[]) => names.some((name) => /android/i.test(name));
 
 const Skills = () => {
+  const skills = useCms('skills', getSkills);
 
-  const [skillsData, setSkillsData] = useState<AllSkillcategory[] | null>(null);
-
-  useEffect(() => {
-    async function fetchSkills() {
-      const data = await getSkills();
-      setSkillsData(data);
-    }
-
-    fetchSkills()
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-  if (!skillsData) return <div>Loading...</div>;
   return (
-    <SkillsSection id="skills" role="region" aria-label="Skills and Expertise">
-      <SectionTitle
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        role="heading"
-        aria-level={2}
-      >
-        Skills & Expertise
-      </SectionTitle>
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <SkillsContainer role="list">
-          {skillsData.map((category, index) => (
-            <SkillCategory 
-              key={index} 
-              variants={itemVariants}
-              role="listitem"
-              aria-labelledby={`category-title-${index}`}
-            >
-              <CategoryTitle id={`category-title-${index}`}>
-                
-                {category.title}
-              </CategoryTitle>
-              <SkillsList role="list" aria-label={`${category.title} skills`}>
-                {category.skills.map((skill, skillIndex) => (
-                  <SkillItem 
-                    key={skillIndex} 
-                    variants={itemVariants}
-                    role="listitem"
-                  >
-                    <span aria-hidden="true">{techIcons[skill.icon] || <FaToolbox/>}</span>
-                    <span>{skill.name}</span>
-                    <span className="sr-only">{`${skill.name} - ${category.title} skill`}</span>
-                  </SkillItem>
-                ))}
-              </SkillsList>
-            </SkillCategory>
-          ))}
-        </SkillsContainer>
-      </motion.div>
-    </SkillsSection>
+    <Section id="skills" aria-labelledby="skills-title">
+      <SectionHeading id="skills-title">Skills</SectionHeading>
+
+      {skills.status === 'loading' && <Loading label="Retrieving skills" />}
+      {skills.status === 'error' && <LoadError what="skills" retry={skills.retry} />}
+      {skills.status === 'ready' && (
+        <Columns>
+          {[...skills.data]
+            .sort((a, b) =>
+              Number(hasAndroid(b.skills.map((s) => s.name))) - Number(hasAndroid(a.skills.map((s) => s.name))))
+            .map((category) => (
+              <Category key={category.id}>
+                <h3 id={`skills-${category.id}`}>{category.title}</h3>
+                <Items aria-labelledby={`skills-${category.id}`}>
+                  {category.skills.map((skill) => (
+                    <li key={skill.id}>{skill.name}</li>
+                  ))}
+                </Items>
+              </Category>
+            ))}
+        </Columns>
+      )}
+    </Section>
   );
 };
 

@@ -1,0 +1,435 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-18T17:25:30+00:00",
+  "title": "Design System: Phyo Lin Mg",
+  "extensions": {
+    "colorMeta": {
+      "ribbon": {
+        "role": "primary",
+        "displayName": "Ribbon Red",
+        "canonical": "#A3141F",
+        "tonalRamp": [
+          "oklch(15% 0.175 24.9)",
+          "oklch(27% 0.175 24.9)",
+          "oklch(39% 0.175 24.9)",
+          "oklch(51% 0.175 24.9)",
+          "oklch(63% 0.175 24.9)",
+          "oklch(75% 0.175 24.9)",
+          "oklch(85% 0.175 24.9)",
+          "oklch(95% 0.175 24.9)"
+        ]
+      },
+      "ribbon-deep": {
+        "role": "primary",
+        "displayName": "Ribbon Deep",
+        "canonical": "#7E0E17",
+        "tonalRamp": [
+          "oklch(15% 0.144 24.5)",
+          "oklch(27% 0.144 24.5)",
+          "oklch(39% 0.144 24.5)",
+          "oklch(51% 0.144 24.5)",
+          "oklch(63% 0.144 24.5)",
+          "oklch(75% 0.144 24.5)",
+          "oklch(85% 0.144 24.5)",
+          "oklch(95% 0.144 24.5)"
+        ]
+      },
+      "ribbon-sheen": {
+        "role": "primary",
+        "displayName": "Ribbon Sheen",
+        "canonical": "#C8323C",
+        "tonalRamp": [
+          "oklch(15% 0.186 22.5)",
+          "oklch(27% 0.186 22.5)",
+          "oklch(39% 0.186 22.5)",
+          "oklch(51% 0.186 22.5)",
+          "oklch(63% 0.186 22.5)",
+          "oklch(75% 0.186 22.5)",
+          "oklch(85% 0.186 22.5)",
+          "oklch(95% 0.186 22.5)"
+        ]
+      },
+      "ruby": {
+        "role": "primary",
+        "displayName": "Ruby Tint",
+        "canonical": "#EBCBC4",
+        "tonalRamp": [
+          "oklch(15% 0.038 32.4)",
+          "oklch(27% 0.038 32.4)",
+          "oklch(39% 0.038 32.4)",
+          "oklch(51% 0.038 32.4)",
+          "oklch(63% 0.038 32.4)",
+          "oklch(75% 0.038 32.4)",
+          "oklch(85% 0.038 32.4)",
+          "oklch(95% 0.038 32.4)"
+        ]
+      },
+      "buff": {
+        "role": "neutral",
+        "displayName": "Archival Buff",
+        "canonical": "#EDE5D4",
+        "tonalRamp": [
+          "oklch(15% 0.024 85.8)",
+          "oklch(27% 0.024 85.8)",
+          "oklch(39% 0.024 85.8)",
+          "oklch(51% 0.024 85.8)",
+          "oklch(63% 0.024 85.8)",
+          "oklch(75% 0.024 85.8)",
+          "oklch(85% 0.024 85.8)",
+          "oklch(95% 0.024 85.8)"
+        ]
+      },
+      "buff-deep": {
+        "role": "neutral",
+        "displayName": "Buff Deep",
+        "canonical": "#E3D9C4",
+        "tonalRamp": [
+          "oklch(15% 0.030 85.6)",
+          "oklch(27% 0.030 85.6)",
+          "oklch(39% 0.030 85.6)",
+          "oklch(51% 0.030 85.6)",
+          "oklch(63% 0.030 85.6)",
+          "oklch(75% 0.030 85.6)",
+          "oklch(85% 0.030 85.6)",
+          "oklch(95% 0.030 85.6)"
+        ]
+      },
+      "mat": {
+        "role": "neutral",
+        "displayName": "Mount Board",
+        "canonical": "#D9CDB4",
+        "tonalRamp": [
+          "oklch(15% 0.036 85.4)",
+          "oklch(27% 0.036 85.4)",
+          "oklch(39% 0.036 85.4)",
+          "oklch(51% 0.036 85.4)",
+          "oklch(63% 0.036 85.4)",
+          "oklch(75% 0.036 85.4)",
+          "oklch(85% 0.036 85.4)",
+          "oklch(95% 0.036 85.4)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Iron-Gall Ink",
+        "canonical": "#2A2622",
+        "tonalRamp": [
+          "oklch(15% 0.009 67.4)",
+          "oklch(27% 0.009 67.4)",
+          "oklch(39% 0.009 67.4)",
+          "oklch(51% 0.009 67.4)",
+          "oklch(63% 0.009 67.4)",
+          "oklch(75% 0.009 67.4)",
+          "oklch(85% 0.009 67.4)",
+          "oklch(95% 0.009 67.4)"
+        ]
+      },
+      "taupe": {
+        "role": "neutral",
+        "displayName": "Ledger Taupe",
+        "canonical": "#6B6254",
+        "tonalRamp": [
+          "oklch(15% 0.024 78.9)",
+          "oklch(27% 0.024 78.9)",
+          "oklch(39% 0.024 78.9)",
+          "oklch(51% 0.024 78.9)",
+          "oklch(63% 0.024 78.9)",
+          "oklch(75% 0.024 78.9)",
+          "oklch(85% 0.024 78.9)",
+          "oklch(95% 0.024 78.9)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Ledger Rule",
+        "canonical": "#B9AC95",
+        "tonalRamp": [
+          "oklch(15% 0.035 81.9)",
+          "oklch(27% 0.035 81.9)",
+          "oklch(39% 0.035 81.9)",
+          "oklch(51% 0.035 81.9)",
+          "oklch(63% 0.035 81.9)",
+          "oklch(75% 0.035 81.9)",
+          "oklch(85% 0.035 81.9)",
+          "oklch(95% 0.035 81.9)"
+        ]
+      },
+      "thread": {
+        "role": "neutral",
+        "displayName": "Unwoven Thread",
+        "canonical": "#8E8A82",
+        "tonalRamp": [
+          "oklch(15% 0.013 84.6)",
+          "oklch(27% 0.013 84.6)",
+          "oklch(39% 0.013 84.6)",
+          "oklch(51% 0.013 84.6)",
+          "oklch(63% 0.013 84.6)",
+          "oklch(75% 0.013 84.6)",
+          "oklch(85% 0.013 84.6)",
+          "oklch(95% 0.013 84.6)"
+        ]
+      },
+      "stamp": {
+        "role": "neutral",
+        "displayName": "Stamp Ink",
+        "canonical": "#7C7468",
+        "tonalRamp": [
+          "oklch(15% 0.021 78.1)",
+          "oklch(27% 0.021 78.1)",
+          "oklch(39% 0.021 78.1)",
+          "oklch(51% 0.021 78.1)",
+          "oklch(63% 0.021 78.1)",
+          "oklch(75% 0.021 78.1)",
+          "oklch(85% 0.021 78.1)",
+          "oklch(95% 0.021 78.1)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name in red, once per page; contact title at clamp(3rem, 7vw, 5rem)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles in red inside a bookmark head."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project and ledger role titles in ink."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Italic claims, descriptions, organisation names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text with oldstyle proportional figures."
+      },
+      "caps-action": {
+        "displayName": "Caps Action",
+        "purpose": "Small-caps actions, tags and nav entries."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Taupe small-caps definition terms; 0.78rem is the floor."
+      }
+    },
+    "shadows": [
+      {
+        "name": "mat-lift",
+        "value": "0 1px 0 rgba(255,255,255,0.5) inset, 0 14px 28px -18px rgba(42,38,34,0.45), 0 2px 5px -2px rgba(42,38,34,0.25)",
+        "purpose": "Mounted screenshots only."
+      },
+      {
+        "name": "window-well",
+        "value": "inset 0 2px 6px rgba(42,38,34,0.12)",
+        "purpose": "Recessed window inside the mat."
+      },
+      {
+        "name": "sheet-drop",
+        "value": "0 18px 30px -18px rgba(42,38,34,0.35)",
+        "purpose": "Mobile index sheet as it drops."
+      },
+      {
+        "name": "ribbon-sheen",
+        "value": "inset 0 1px 0 #C8323C",
+        "purpose": "Highlight along the top of the ribbon tag."
+      },
+      {
+        "name": "ringed-dot",
+        "value": "inset 0 0 0 3px #EDE5D4, inset 0 0 0 10px #A3141F",
+        "purpose": "Shape construction for the ringed dot (not elevation); 2.5px/8px on small rings, ruby core on certificate seals."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-house",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Exponential ease-out for every transition and entrance."
+      },
+      {
+        "name": "state",
+        "value": "0.3s",
+        "purpose": "Color, border and arrow-nudge transitions."
+      },
+      {
+        "name": "tag",
+        "value": "0.35s",
+        "purpose": "Ribbon tag fill and tail extension."
+      },
+      {
+        "name": "ring-in",
+        "value": "0.4s",
+        "purpose": "Active ringed dot scaling in on the index spine."
+      },
+      {
+        "name": "sheet",
+        "value": "0.45s",
+        "purpose": "Mobile sheet slide."
+      },
+      {
+        "name": "settle",
+        "value": "0.9s to 1s, translateY(14px) to 0 with fade",
+        "purpose": "Hero intro and exhibit entrance."
+      },
+      {
+        "name": "ribbon-draw",
+        "value": "1.8s clip-path inset reveal, 0.25s delay",
+        "purpose": "Career ribbon draws origin to present; nodes ink in (0.6s, scale 0.3 to 1) as it passes; labels rise 6px (0.7s)."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none",
+        "purpose": "Every animation is drawn at rest; smooth scroll disabled."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "900px"
+      },
+      {
+        "name": "lg",
+        "value": "1180px"
+      }
+    ],
+    "layout": {
+      "rail": "17rem",
+      "sectionPadding": "6rem clamp(1rem, 4vw, 4.5rem) 3.5rem",
+      "scrollPaddingTop": "5rem"
+    },
+    "texture": {
+      "grain": "SVG feTurbulence fractalNoise baseFrequency 0.85, 3 octaves, taupe at 9% alpha, 240px tile",
+      "laid": "repeating-linear-gradient(0deg, rgba(107,98,84,0.035) 0 1px, transparent 1px 7px)"
+    }
+  },
+  "components": [
+    {
+      "name": "Ribbon Tag (primary action)",
+      "kind": "button",
+      "refersTo": "ribbon-tag",
+      "description": "The single primary action: a red ribbon with a pointed tail, used for email.",
+      "html": "<a class=\"ds-ribbon-tag\" href=\"#\"><svg class=\"ds-ico\" viewBox=\"0 0 512 512\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg> Email me</a>",
+      "css": ".ds-ribbon-tag{display:inline-flex;align-items:center;gap:.75rem;min-height:3rem;padding:.7rem 2rem .7rem 1.2rem;background:#A3141F;color:#EDE5D4;font-family:'Spectral SC','Spectral',Georgia,serif;font-weight:600;font-size:1.02rem;letter-spacing:.12em;text-decoration:none;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%);box-shadow:inset 0 1px 0 #C8323C;transition:background .35s cubic-bezier(0.16, 1, 0.3, 1),padding .35s cubic-bezier(0.16, 1, 0.3, 1);} .ds-ribbon-tag:hover{background:#7E0E17;padding-right:2.5rem;} .ds-ribbon-tag:focus-visible{outline:2px solid #A3141F;outline-offset:4px;}"
+    },
+    {
+      "name": "Outline Tag (secondary action)",
+      "kind": "button",
+      "refersTo": "outline-tag",
+      "description": "Profile links drawn as the same tag in outline; border, text and icon turn red on hover.",
+      "html": "<a class=\"ds-outline-tag\" href=\"#\"><svg class=\"ds-ico\" viewBox=\"0 0 496 512\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z\"/></svg> GitHub</a>",
+      "css": ".ds-outline-tag{display:inline-flex;align-items:center;gap:.5rem;min-height:3rem;padding:.6rem .8rem;border:1px solid #6B6254;border-radius:3px;color:#2A2622;background:rgba(237,229,212,.6);font-family:'Spectral SC','Spectral',Georgia,serif;font-weight:500;font-size:.95rem;letter-spacing:.05em;text-decoration:none;transition:border-color .3s cubic-bezier(0.16, 1, 0.3, 1),color .3s cubic-bezier(0.16, 1, 0.3, 1);} .ds-outline-tag svg{color:#6B6254;transition:color .3s cubic-bezier(0.16, 1, 0.3, 1);} .ds-outline-tag:hover,.ds-outline-tag:hover svg{border-color:#A3141F;color:#A3141F;} .ds-outline-tag:focus-visible{outline:2px solid #A3141F;outline-offset:3px;}"
+    },
+    {
+      "name": "Rail Index",
+      "kind": "nav",
+      "refersTo": "index-link",
+      "description": "Section index on a rule spine; the active entry turns red and its ringed dot scales in.",
+      "html": "<ol class=\"ds-index\"><li><a class=\"ds-index-link is-active\" href=\"#\">Overview</a></li><li><a class=\"ds-index-link\" href=\"#\">Work</a></li><li><a class=\"ds-index-link\" href=\"#\">Record</a></li></ol>",
+      "css": ".ds-index{list-style:none;margin:0 0 0 .45rem;padding:0;border-left:1px solid #B9AC95;background-color:#EDE5D4;} .ds-index-link{position:relative;display:block;padding:.4rem 0 .4rem 1.35rem;font-family:'Spectral SC','Spectral',Georgia,serif;font-weight:500;font-size:1rem;letter-spacing:.12em;text-decoration:none;color:#2A2622;transition:color .3s cubic-bezier(0.16, 1, 0.3, 1);} .ds-index-link::before{content:'';position:absolute;left:-.5rem;top:50%;width:.95rem;height:.95rem;margin-top:-.475rem;border-radius:50%;border:1.5px solid #A3141F;background:#EDE5D4;box-shadow:inset 0 0 0 2.5px #EDE5D4,inset 0 0 0 8px #A3141F;transform:scale(0);transition:transform .4s cubic-bezier(0.16, 1, 0.3, 1);} .ds-index-link.is-active{color:#A3141F;} .ds-index-link.is-active::before{transform:scale(1);} .ds-index-link:hover{color:#A3141F;} .ds-index-link:focus-visible{outline:2px solid #A3141F;outline-offset:3px;border-radius:2px;}"
+    },
+    {
+      "name": "Section Heading",
+      "kind": "custom",
+      "description": "Bookmark tab beside a red display title, italic note, and a red rule ending in a diamond.",
+      "html": "<header class=\"ds-head\"><svg width=\"24\" height=\"44\" viewBox=\"0 0 11 20\" aria-hidden=\"true\"><path d=\"M0 0h11v20l-5.5-4.2L0 20z\" fill=\"#A3141F\"/><path d=\"M1.4 0v16.6\" stroke=\"#C8323C\" stroke-width=\".6\" opacity=\".7\"/></svg><h2 class=\"ds-head-title\">Selected work</h2><p class=\"ds-head-note\">Shipped apps and tools, each shown with the role it came from.</p><div class=\"ds-head-rule\"></div></header>",
+      "css": ".ds-head{display:grid;grid-template-columns:auto 1fr;column-gap:1.25rem;align-items:start;padding:1rem;background-color:#EDE5D4;} .ds-head svg{margin-top:-.35rem;} .ds-head-title{margin:0;font-family:'Instrument Serif','Times New Roman',serif;font-weight:400;line-height:1.05;font-size:clamp(2.4rem,5vw,3.75rem);letter-spacing:-.01em;color:#A3141F;} .ds-head-note{grid-column:2;margin:.75rem 0 0;font-family:'Spectral',Georgia,serif;font-style:italic;font-size:1.125rem;color:#6B6254;max-width:52ch;} .ds-head-rule{position:relative;grid-column:1/-1;height:1px;margin-top:1.25rem;background:rgba(163,20,31,.55);} .ds-head-rule::after{content:'';position:absolute;right:0;top:-3px;width:7px;height:7px;background:#A3141F;transform:rotate(45deg);}"
+    },
+    {
+      "name": "Mount",
+      "kind": "card",
+      "refersTo": "mount-mat",
+      "description": "A screenshot mounted on a mat like a catalogued document; never cropped.",
+      "html": "<div class=\"ds-mount\"><div class=\"ds-mount-window\"><div class=\"ds-mount-img\"></div></div><svg class=\"ds-mount-tab\" width=\"19\" height=\"34\" viewBox=\"0 0 11 20\" aria-hidden=\"true\"><path d=\"M0 0h11v20l-5.5-4.2L0 20z\" fill=\"#A3141F\"/></svg></div>",
+      "css": ".ds-mount{position:relative;padding:clamp(.75rem,2.2vw,1.4rem);background:#D9CDB4;border-radius:3px;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 14px 28px -18px rgba(42,38,34,.45),0 2px 5px -2px rgba(42,38,34,.25);max-width:360px;} .ds-mount-window{padding:.75rem;background:#EDE5D4;border:1px solid #B9AC95;box-shadow:inset 0 2px 6px rgba(42,38,34,.12);} .ds-mount-img{aspect-ratio:16/9;background:linear-gradient(#fff,#f1ece2);mix-blend-mode:multiply;} .ds-mount-tab{position:absolute;top:-4px;right:1.5rem;}"
+    },
+    {
+      "name": "Accession Card",
+      "kind": "card",
+      "refersTo": "accession-card",
+      "description": "Rule-bordered record card: taupe small-caps terms over ink values, red action at the foot.",
+      "html": "<dl class=\"ds-card\"><dt>Current post</dt><dd>SDK Developer, TicketRecipe</dd><dt>Android since</dt><dd>2019</dd><a href=\"#\"><svg class=\"ds-ico\" viewBox=\"0 0 512 512\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg><span>Write to me</span></a></dl>",
+      "css": ".ds-card{display:grid;gap:.75rem;margin:0;padding:1.25rem;border:1px solid #B9AC95;border-radius:4px;background-color:#EDE5D4;max-width:15rem;} .ds-card dt{font-family:'Spectral SC','Spectral',Georgia,serif;font-weight:500;font-size:.78rem;letter-spacing:.16em;color:#6B6254;} .ds-card dd{margin:0 0 .2rem;font-family:'Spectral',Georgia,serif;font-size:1rem;line-height:1.35;color:#2A2622;} .ds-card a{display:inline-flex;align-items:center;gap:.5rem;padding-top:.75rem;border-top:1px solid #B9AC95;font-family:'Spectral SC','Spectral',Georgia,serif;font-size:.85rem;letter-spacing:.14em;color:#A3141F;text-decoration:none;} .ds-card a:hover span{text-decoration:underline;text-underline-offset:.25em;} .ds-card a:focus-visible{outline:2px solid #A3141F;outline-offset:3px;}"
+    },
+    {
+      "name": "Career Panel with Ribbon",
+      "kind": "custom",
+      "refersTo": "career-panel",
+      "description": "Rule-bordered panel with a vertical red tab; work as solid red line, study as dashed thread, present node as a ringed dot.",
+      "html": "<div class=\"ds-panel\"><p class=\"ds-panel-tab\">Career</p><div class=\"ds-ribbon\"><span class=\"ds-node is-study\"></span><i class=\"ds-seg is-study\"></i><span class=\"ds-node\"></span><i class=\"ds-seg\"></i><a href=\"#\" class=\"ds-node is-now\" aria-label=\"Present\"></a></div><div class=\"ds-years\"><span>2015</span><span>2019</span><span>2025</span></div></div>",
+      "css": ".ds-panel{position:relative;border:1px solid #B9AC95;border-radius:6px;padding:2rem 2rem 1.25rem 4.4rem;background:rgba(237,229,212,.55);background-color:#EDE5D4;} .ds-panel-tab{position:absolute;left:-1px;top:2rem;margin:0;width:2.1rem;padding:1.1rem 0 1.6rem;background:#A3141F;color:#EDE5D4;font-family:'Spectral SC','Spectral',Georgia,serif;font-weight:600;font-size:.85rem;letter-spacing:.22em;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;clip-path:polygon(0 0,50% .7rem,100% 0,100% 100%,0 100%);} .ds-ribbon{display:flex;align-items:center;} .ds-seg{flex:1;border-top:3px solid #A3141F;} .ds-seg.is-study{border-top:2px dashed #8E8A82;} .ds-node{flex:none;width:1.2rem;height:1.2rem;border-radius:50%;background:#EDE5D4;border:2px solid #A3141F;transition:box-shadow .3s cubic-bezier(0.16, 1, 0.3, 1);} .ds-node.is-study{border-color:#8E8A82;} .ds-node.is-now,.ds-node:hover{width:1.55rem;height:1.55rem;box-shadow:inset 0 0 0 3px #EDE5D4,inset 0 0 0 10px #A3141F;} .ds-node:focus-visible{outline:2px solid #A3141F;outline-offset:3px;} .ds-years{display:flex;justify-content:space-between;margin-top:.75rem;font-family:'Spectral SC','Spectral',Georgia,serif;font-weight:600;font-size:1.05rem;letter-spacing:.1em;color:#A3141F;font-variant-numeric:lining-nums;}"
+    },
+    {
+      "name": "Caps Text Action",
+      "kind": "button",
+      "description": "Red small-caps link with an arrow that nudges right on hover.",
+      "html": "<a class=\"ds-caps-link\" href=\"#\">On Google Play <svg class=\"ds-ico\" viewBox=\"0 0 448 512\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z\"/></svg></a>",
+      "css": ".ds-caps-link{display:inline-flex;align-items:center;gap:.45rem;min-height:2.75rem;font-family:'Spectral SC','Spectral',Georgia,serif;font-size:.85rem;letter-spacing:.14em;color:#A3141F;text-decoration:none;} .ds-caps-link svg{width:.85em;height:.85em;transition:transform .3s cubic-bezier(0.16, 1, 0.3, 1);} .ds-caps-link:hover svg{transform:translateX(4px);} .ds-caps-link:focus-visible{outline:2px solid #A3141F;outline-offset:3px;border-radius:2px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Provenance Record",
+    "overview": "(North Star taken from the direction contract's thesis; not separately confirmed in an interview.) The site is kept like an archival file on a working career: buff laid paper with faint grain and horizontal laid lines, taupe ledger rules, small-caps catalogue labels, screenshots mounted on mats like catalogued documents, and a single ribbon-red custody line that carries every dated role to the present post. Red is ink, line, tab and seal at once; everything else is paper, rule and gray thread.\n\nDensity is a reading-room density, not a dashboard one: generous section breaks (6rem), hairline rules between entries, text set in a literary serif with oldstyle figures. Depth is physical and sparse. Paper is flat; only objects lifted off it (a mounted screenshot, the mobile index sheet) cast a soft drop shadow. Motion is the ribbon drawing itself from origin to present and its nodes inking in as it passes; with reduced motion everything is drawn at rest.\n\nThe world was specified with Gloock as the display face; the shipped build uses Instrument Serif. This document records what shipped.",
+    "keyCharacteristics": [
+      "Buff laid-paper ground (grain plus 7px laid lines) everywhere; no white surfaces.",
+      "One accent hue, ribbon red: ink for display type, dates, marks and text actions, plus the custody line, active state and focus. Its only fills are the primary tag, tabs and bookmarks.",
+      "Three serif voices: Instrument Serif display, Spectral text and italic, Spectral SC tracked small caps.",
+      "Swallowtail bookmark tabs and ringed-dot seals as the recurring ornaments.",
+      "Work drawn as solid red line, study as dashed gray thread."
+    ],
+    "rules": [
+      {
+        "name": "The Custody Line Rule",
+        "body": "Ribbon red is the only accent hue. It draws the career line and inks display type, dates, marks and text actions; it fills only the one primary tag, tabs and bookmarks. Ruby is its tint, never a second accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stroke-Only Rule",
+        "body": "Rule, thread, stamp and mat fall below text contrast on buff. They draw lines, rings, ornaments and surfaces; they never set readable text. The one exception is the stamp's own legends, which are decorative and hidden from assistive tech.",
+        "section": "colors"
+      },
+      {
+        "name": "The True Small Caps Rule",
+        "body": "Catalogue voice is Spectral SC set in mixed case and tracked 0.06 to 0.16em. The build never uses `text-transform: uppercase`; do not fake caps with it. Literal capitals typed into the stamp's legends are native to that ornament.",
+        "section": "typography"
+      },
+      {
+        "name": "The Italic Claim Rule",
+        "body": "Claims, descriptions and organisation names are Spectral italic; display type is never italicised and never bolded (Instrument Serif ships at 400 only).",
+        "section": "typography"
+      },
+      {
+        "name": "The Lifted Object Rule",
+        "body": "Drop shadows belong only to things that physically sit on the paper: mats and the dropped sheet. Cards, panels, tags and sections cast none. Inset highlights (the ribbon sheen, the mat's top edge) and inset rings that draw ringed dots are surface finish and shape construction, not elevation.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Ringed Dot Rule",
+        "body": "Current, active and certified states are one figure: a 1.5 to 2px red ring, a buff gap of 2 to 3px, and a filled core (red for active and present, ruby for certificate seals). Inactive nodes are an empty ring; study nodes ring in thread gray.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** keep the ground buff laid paper with grain on every surface; tint panels with buff or ruby at partial opacity, never white.",
+      "**Do** use ribbon red as ink for display type, dates, marks and text actions, and for the custody line, active states and focus; fill with it only the single primary tag, tabs and bookmarks.",
+      "**Do** mark current or active state with the ringed dot: red ring, buff gap, red core.",
+      "**Do** draw work as solid red line and study as dashed thread gray.",
+      "**Do** mount screenshots on the mat with `object-fit: contain`; never crop them.",
+      "**Do** set labels in Spectral SC mixed case tracked 0.12 to 0.16em, no smaller than 0.78rem.",
+      "**Do** give every animation a reduced-motion branch that shows the final state at rest; ease with `cubic-bezier(0.16, 1, 0.3, 1)`.",
+      "**Do** keep tap targets at least 2.75rem tall for text actions and 3rem for tags."
+    ],
+    "donts": [
+      "**Don't** introduce a second accent hue; ruby is the red's tint, not a new color.",
+      "**Don't** set readable text in rule, thread, stamp or mat colors; taupe is the lightest text color on buff.",
+      "**Don't** put drop shadows on cards, panels, tags or sections; only mats and the dropped sheet lift.",
+      "**Don't** use `text-transform: uppercase` or bold or italic display type.",
+      "**Don't** add weights that are not loaded (Instrument Serif beyond 400, Spectral italic 600)."
+    ]
+  }
+}

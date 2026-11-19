@@ -1,193 +1,113 @@
 import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { FaArrowRight } from 'react-icons/fa';
 import { theme } from '../../styles/theme';
-import { FaExternalLinkAlt } from 'react-icons/fa';
-import { Certificate } from '../../network/model/Certificate';
+import { SectionHeading } from '../ornament/SectionHeading';
+import { Loading, LoadError } from '../ornament/Pending';
+import { useCms } from '../../lib/useCms';
 import { getCertificates } from '../../network/client/getCertificates';
 
-const CertificatesSection = styled.section`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  padding: ${theme.spacing.lg} 0;
+const { colors, fonts, space, breakpoints, ease } = theme;
 
-  @media (min-width: ${theme.breakpoints.md}) {
-    padding: ${theme.spacing.xl} 0;
-  }
+const Section = styled.section`
+  padding: ${space.xxl} clamp(1rem, 4vw, 4.5rem) ${space.xl};
 `;
 
-const SectionTitle = styled(motion.h2)`
-  text-align: center;
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  margin-bottom: calc(${theme.spacing.xl} * 1.5);
-  color: ${theme.colors.textLight};
-  position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -${theme.spacing.md};
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background-color: ${theme.colors.accent};
-    border-radius: 2px;
-  }
-
-  @media (min-width: ${theme.breakpoints.md}) {
-    margin-bottom: calc(${theme.spacing.xl} * 2);
-  }
-`;
-
-const CertificateGrid = styled.div`
+const List = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-  gap: ${theme.spacing.lg};
-  width: 100%;
-  margin-top: ${theme.spacing.lg};
+  border-top: 1px solid ${colors.rule};
 
-  @media (min-width: ${theme.breakpoints.md}) {
-    gap: ${theme.spacing.xl};
-    margin-top: ${theme.spacing.xl};
+  @media (min-width: ${breakpoints.md}) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: ${space.xl};
   }
 `;
 
-const CertificateCard = styled(motion.div)`
-  background: ${theme.colors.glass.background};
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  overflow: hidden;
-  color: ${theme.colors.textLight};
-  transition: all ${theme.transitions.default};
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: ${theme.spacing.lg};
+const Item = styled.li`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: ${space.md};
+  padding: ${space.lg} 0;
+  border-bottom: 1px solid ${colors.rule};
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(246, 177, 122, 0.15);
+  /* small seal */
+  &::before {
+    content: '';
+    grid-row: span 3;
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.3rem;
+    border-radius: 50%;
+    border: 1.5px solid ${colors.ribbon};
+    box-shadow: inset 0 0 0 2.5px ${colors.buff}, inset 0 0 0 8px ${colors.ruby};
   }
-`;
 
-const CertificateTitle = styled.h3`
-  font-size: clamp(1.1rem, 3vw, 1.4rem);
-  margin-bottom: ${theme.spacing.sm};
-  color: ${theme.colors.light};
-  font-weight: 600;
-`;
+  h3 {
+    font-family: ${fonts.body};
+    font-weight: 600;
+    font-size: 1.18rem;
+    line-height: 1.3;
+  }
 
-const CertificateDescription = styled.p`
-  color: ${theme.colors.textLight};
-  margin-bottom: ${theme.spacing.md};
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  line-height: 1.6;
-  opacity: 0.9;
-`;
-
-const CertificateActions = styled.div`
-  margin-top: auto;
-  display: flex;
-  gap: ${theme.spacing.md};
-  align-items: center;
+  p {
+    margin-top: 0.35rem;
+    color: ${colors.taupe};
+    line-height: 1.5;
+    max-height: 4.5em;
+    padding: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
   a {
-    color: ${theme.colors.accent};
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    transition: all ${theme.transitions.default};
-    padding: ${theme.spacing.xs};
-    border-radius: 4px;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    font-family: ${fonts.caps};
+    font-size: 0.88rem;
+    letter-spacing: 0.14em;
+    color: ${colors.ribbon};
+    text-decoration: none;
+  }
 
-    &:hover {
-      color: ${theme.colors.light};
-      background: ${theme.colors.glass.card};
-      transform: translateY(-2px);
-    }
+  a svg {
+    transition: transform 0.3s ${ease};
+  }
+
+  a:hover svg {
+    transform: translateX(4px);
   }
 `;
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5 },
-  },
-};
-
 const Certificates = () => {
-  const [certificates, setCertificates] = useState<Certificate[] | null>(null);
-
-  useEffect(() => {
-    async function fetchCertificates() {
-      try {
-        const data = await getCertificates();
-        setCertificates(data);
-      } catch (error) {
-        console.error('Failed to fetch certificates:', error);
-      }
-    }
-
-    fetchCertificates();
-  }, []);
-
-  if (!certificates) return <div>Loading...</div>;
+  const certificates = useCms('certificates', getCertificates);
 
   return (
-    <CertificatesSection id="certificates" role="region" aria-label="Certificates">
-      <div className="container">
-        <SectionTitle
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          role="heading"
-          aria-level={2}
-        >
-          Certificates
-        </SectionTitle>
+    <Section id="certificates" aria-labelledby="certificates-title">
+      <SectionHeading id="certificates-title">Certificates</SectionHeading>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <CertificateGrid role="list">
-            {certificates.map((cert) => (
-              <CertificateCard key={cert.id} variants={itemVariants} role="listitem">
-                <CertificateTitle>{cert.title}</CertificateTitle>
-                <CertificateDescription>{cert.description}</CertificateDescription>
-                <CertificateActions>
-                  <a
-                    href={cert.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Open certificate: ${cert.title}`}
-                    title="Open certificate"
-                  >
-                    <FaExternalLinkAlt aria-hidden="true" />
-                    <span className="sr-only">Open certificate</span>
-                  </a>
-                </CertificateActions>
-              </CertificateCard>
-            ))}
-          </CertificateGrid>
-        </motion.div>
-      </div>
-    </CertificatesSection>
+      {certificates.status === 'loading' && <Loading label="Retrieving certificates" />}
+      {certificates.status === 'error' && <LoadError what="certificates" retry={certificates.retry} />}
+      {certificates.status === 'ready' && (
+        <List>
+          {certificates.data.map((cert) => (
+            <Item key={cert.id}>
+              <h3>{cert.title}</h3>
+              {cert.description && <p>{cert.description}</p>}
+              {cert.url && (
+                <a href={cert.url} target="_blank" rel="noopener noreferrer">
+                  View credential <FaArrowRight aria-hidden="true" />
+                  <span className="sr-only">: {cert.title}</span>
+                </a>
+              )}
+            </Item>
+          ))}
+        </List>
+      )}
+    </Section>
   );
 };
 

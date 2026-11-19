@@ -4,7 +4,7 @@ export interface AllSkillcategory {
     title: string;
     skills: Skill[];
   }
-  
+
   export interface Skill {
     id: string;
     icon: string;
